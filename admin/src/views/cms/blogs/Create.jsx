@@ -27,7 +27,7 @@ function Create() {
                   Content <span className="span">*</span>
                 </label>
                 <JoditTextEditor
-                  initialValue={"Write sometting here"}
+                  initialValues={"Write sometting here"}
                 ></JoditTextEditor>
               </div>
             </div>

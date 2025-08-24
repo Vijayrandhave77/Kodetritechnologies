@@ -1,13 +1,13 @@
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 
-function SummernoteEditor({ initialValue, setInitialValue }) {
+function SummernoteEditor({ initialValues, setInitialValues }) {
   return (
     <ReactQuill
       theme="snow"
-      value={initialValue}
+      value={initialValues}
       onChange={(data) => {
-        setInitialValue((pre) => ({ ...pre, content: data }));
+        setInitialValues((pre) => ({ ...pre, content: data }));
       }}
     />
   );

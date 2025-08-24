@@ -5,7 +5,7 @@ import SummernoteEditor from "../../../components/textEditor/SummernoteEditor";
 import { useState } from "react";
 
 function FooterSetting() {
-  const [initialValue, setInitialValue] = useState({
+  const [initialValues, setInitialValues] = useState({
     name: "",
     content: "",
   });
@@ -112,8 +112,8 @@ function FooterSetting() {
           <div className="quickLinkCard cp">
             <div>
               <SummernoteEditor
-                initialValue={initialValue.content}
-                setInitialValue={setInitialValue}
+                initialValues={initialValues.content}
+                setInitialValues={setInitialValues}
               />
             </div>
             <div className="cmt">
@@ -125,8 +125,8 @@ function FooterSetting() {
           <div className="supportCard cp">
             <div>
               <SummernoteEditor
-                initialValue={initialValue.content}
-                setInitialValue={setInitialValue}
+                initialValues={initialValues.content}
+                setInitialValues={setInitialValues}
               />
             </div>
             <div className="cmt">

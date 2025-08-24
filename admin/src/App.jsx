@@ -45,6 +45,8 @@ import Tages from "./views/configuration/masters/Tags";
 import Brands from "./views/configuration/masters/Brands";
 import Categories from "./views/configuration/masters/Categories";
 import Regions from "./views/configuration/masters/Regions";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 function App() {
   return (
     <BrowserRouter>
@@ -109,6 +111,8 @@ function App() {
           />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/signup" element={<Signup />}/>
+        <Route path="/login" element={<Login />}/>
       </Routes>
     </BrowserRouter>
   );

@@ -840,3 +840,128 @@ body {
     grid-template-rows: repeat(3, auto);
     gap: 1rem;
 }
+
+
+
+/* signup / login page */
+
+.signupPage {
+    width: 100%;
+    height: 100vh;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerleft {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerRight {
+    width: 50%;
+    height: 100%;
+}
+
+.loginRight {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerlogo {
+    width: 100%;
+    height: 12%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerlogo>img {
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+}
+
+.signupForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0rem 4rem;
+}
+
+.signupForm>h1 {
+    font-size: 1.2rem;
+}
+
+.input-password {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #d5d7d9;
+    padding-right: 1rem;
+}
+
+.input-password>input {
+    width: 100%;
+    border-radius: 4px;
+    padding-left: 1rem;
+    height: 2.5rem;
+    outline: none;
+}
+
+.signup {
+    width: 100%;
+    height: 2.4rem;
+    border-radius: 4px;
+    color: white;
+    background: #002434;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.signup:hover {
+    background-color: #032f42;
+}
+
+.or {
+    width: 90%;
+    height: 0.5px;
+    background-color: #d5d7d9;
+}
+
+.googleButton {
+    width: 100%;
+    padding: 0.4rem;
+    border-radius: 4px;
+    border: 1px solid #d5d7d9;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    background: white;
+}
+
+.googleButton:hover {
+    background: #d5d7d9;
+}
+
+.googleButton>img {
+    width: 25px;
+}

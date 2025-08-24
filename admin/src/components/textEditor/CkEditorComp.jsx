@@ -98,7 +98,7 @@ const LICENSE_KEY =
 const CLOUD_SERVICES_TOKEN_URL =
 	'https://gheaiylh44er.cke-cs.com/token/dev/d75e021154ad6b794a3888db26d84d68d65a4ad27e381b04ed2f3e09b118?limit=10';
 
-export default function CKEditorComp({initialValue,setInitialVlaue}) {
+export default function CKEditorComp({initialValues,setInitialVlaues}) {
 	const editorContainerRef = useRef(null);
 	const editorRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);

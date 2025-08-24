@@ -1,14 +1,14 @@
 import JoditEditor from "jodit-react";
 import { useRef } from "react";
-export default function JoditTextEditor({ initialValue, setInitialValue }) {
+export default function JoditTextEditor({ initialValues, setInitialValues }) {
   const editor = useRef(null);
 
   return (
     <JoditEditor
       ref={editor}
-      value={initialValue}
+      value={initialValues}
       onBlur={(newContent) =>
-        setInitialValue((pre) => ({ ...pre, content: newContent }))
+        setInitialValues((pre) => ({ ...pre, content: newContent }))
       }
     />
   );

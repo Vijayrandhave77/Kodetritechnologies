@@ -1,6 +1,6 @@
 import { GrUpload } from "react-icons/gr";
 
-function FileUplodsModule({ initialValue, setInitialValue, onChange }) {
+function FileUplodsModule({ initialValues, setInitialValues, onChange }) {
   return (
     <>
       <input type="file" id="file" className="hidden" />

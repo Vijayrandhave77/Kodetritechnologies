@@ -38,7 +38,7 @@ function Create() {
               </div>
               <div className="cmt">
                 <JoditTextEditor
-                  initialValue={"Write sometting here"}
+                  initialValues={"Write sometting here"}
                 ></JoditTextEditor>
               </div>
             </div>

@@ -1,8 +1,27 @@
+import { useState } from "react";
 import FileUplodsModule from "../../../components/modules/FileUplodsModule";
 import SubHeader from "../../../components/SubHeader";
 import TableLayoutComp from "../../../components/Tables/TableLayoutComp";
 
 function Create() {
+  const [initialValues, setInitialValues] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    password: "",
+    confirmPassword: "",
+    gender: "",
+    address: "",
+    description: "",
+    profileImage: "",
+    status: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value, checked } = e.target;
+    setInitialValues((pre) => ({ ...pre, [name]: value }));
+  };
+
   return (
     <div>
       <SubHeader></SubHeader>
@@ -16,9 +35,11 @@ function Create() {
                 </label>
                 <input
                   type="text"
+                  name="name"
                   className="input"
                   id="name"
                   placeholder="Enter your name"
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -28,8 +49,10 @@ function Create() {
                 <input
                   type="text"
                   className="input"
+                  name="mobile"
                   id="mobile"
                   placeholder="Enter mobile number"
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -39,8 +62,10 @@ function Create() {
                 <input
                   type="text"
                   className="input"
+                  name="email"
                   id="email"
                   placeholder="Enter your email here"
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -50,8 +75,10 @@ function Create() {
                 <input
                   type="text"
                   className="input"
+                  name="password"
                   id="password"
                   placeholder="Enter your password here"
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -61,15 +88,24 @@ function Create() {
                 <input
                   type="text"
                   className="input"
+                  name="confirmPassword"
                   id="repassword"
                   placeholder="Reconfirm your password here"
+                  onChange={handleChange}
                 />
               </div>
               <div className="flex gap-4 cmt">
                 <span className="font-bold">Gender</span>
                 <span className="flex gap-4">
                   <span className="flex gap-2 items-center">
-                    <input type="radio" className="" id="male" name="gender" />
+                    <input
+                      type="radio"
+                      className=""
+                      id="male"
+                      name="gender"
+                      value="male"
+                      onChange={handleChange}
+                    />
                     <label htmlFor="male" className="label">
                       Male
                     </label>
@@ -80,6 +116,8 @@ function Create() {
                       className=""
                       id="female"
                       name="gender"
+                      value="female"
+                      onChange={handleChange}
                     />
                     <label htmlFor="female" className="label">
                       Female
@@ -93,10 +131,11 @@ function Create() {
                   Address <span className="span">*</span>
                 </label>
                 <textarea
-                  name=""
+                  name="address"
                   id="address"
                   className="textarea"
                   placeholder="Enter your address here"
+                  onChange={handleChange}
                 ></textarea>
               </div>
               <div>
@@ -104,10 +143,11 @@ function Create() {
                   Description <span className="span">*</span>
                 </label>
                 <textarea
-                  name=""
+                  name="description"
                   id="description"
                   className="textarea"
                   placeholder="Enter your description here"
+                  onChange={handleChange}
                 ></textarea>
               </div>
             </div>
@@ -125,19 +165,36 @@ function Create() {
               <div className="flex gap-4 cmt">
                 <span>admin status</span>
                 <span className="flex items-center gap-2">
-                  <input type="radio" id="active" name="status" />
+                  <input
+                    type="radio"
+                    id="active"
+                    name="status"
+                    value="active"
+                    onChange={handleChange}
+                  />
                   <label htmlFor="active" className="label">
                     Active
                   </label>
                 </span>
                 <span className="flex items-center gap-2">
-                  <input type="radio" id="inactive" name="status" />
+                  <input
+                    type="radio"
+                    id="inactive"
+                    name="status"
+                    value="inactive"
+                    onChange={handleChange}
+                  />
                   <label htmlFor="inactive" className="label">
                     Inactive
                   </label>
                 </span>
                 <span className="flex items-center gap-2">
-                  <input type="radio" id="blacklist" name="status" />
+                  <input
+                    type="radio"
+                    id="blacklist"
+                    name="status"
+                    value="blacklist"
+                  />
                   <label htmlFor="blacklist" className="label">
                     Inactive
                   </label>

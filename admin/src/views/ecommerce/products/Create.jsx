@@ -5,7 +5,7 @@ import FileUplodsModule from "../../../components/modules/FileUplodsModule";
 import TableLayoutComp from "../../../components/Tables/TableLayoutComp";
 
 function Create() {
-  const [initialValue, setInitialValue] = useState({
+  const [initialValues, setInitialValues] = useState({
     title: "",
     content: "Hello vijay",
     tax: false,
@@ -15,7 +15,7 @@ function Create() {
     const { name, value, checked } = e.target;
     console.log(value);
     if (name === "tax") {
-      setInitialValue((pre) => ({ ...pre, tax: checked }));
+      setInitialValues((pre) => ({ ...pre, tax: checked }));
     }
   };
   return (
@@ -40,8 +40,8 @@ function Create() {
                   Short Description <span className="text-red-600">*</span>
                 </label>
                 <JoditTextEditor
-                  initialValue={initialValue?.content}
-                  setInitialValue={setInitialValue}
+                  initialValues={initialValues?.content}
+                  setInitialValues={setInitialValues}
                 />
               </div>
               <div className="longDescription">
@@ -49,8 +49,8 @@ function Create() {
                   Long Description <span className="text-red-600">*</span>
                 </label>
                 <JoditTextEditor
-                  initialValue={"long contenct"}
-                  setInitialValue={setInitialValue}
+                  initialValues={"long contenct"}
+                  setInitialValues={setInitialValues}
                 />
               </div>
             </div>
@@ -109,12 +109,12 @@ function Create() {
                   type="checkbox"
                   name="tax"
                   id="tax"
-                  checked={initialValue.tax}
+                  checked={initialValues.tax}
                   onChange={handelOnchange}
                 />
                 Charge tax on this product
               </label>
-              {initialValue?.tax && (
+              {initialValues?.tax && (
                 <input
                   type="text"
                   className="input cmt"
