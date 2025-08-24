@@ -1,0 +1,42 @@
+# --- General ---
+node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# --- Frontend (React + Vite) ---
+/admin/node_modules/
+/admin/dist/
+/admin/.vite
+/admin/.eslintcache
+/admin/.env
+/admin/.env.local
+/admin/.env.*.local
+
+# --- Backend (Node + Express) ---
+/api/node_modules/
+/api/dist/
+/api/build/
+/api/coverage
+/api/.nyc_output
+/api/.env
+/api/.env.local
+/api/.env.*.local
+
+# --- Optional (uploads/temp) ---
+/api/uploads
+/api/tmp
