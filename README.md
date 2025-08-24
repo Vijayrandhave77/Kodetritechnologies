@@ -1,26 +1,42 @@
-# Admin Dashboard
+Kodetri Technologies
 
-This is a modern **Admin Panel** built with **React + Vite**.  
-Live Demo 👉 [Admin Dashboard](https://kodetritechnologies.vercel.app)
+An open-source project by Kodetri Technologies 🚀.
+This repository contains the Admin Panel and API backend for managing applications, users, and other resources efficiently.
 
-## 🚀 Features
+✨ Features
 
-- Dashboard with analytics
-- Products management
-- Orders management
-- User logs
+📊 Admin Panel – User-friendly dashboard for managing data.
 
-## 🛠️ Tech Stack
+⚡ RESTful API – Scalable and secure API endpoints.
 
-- React
-- Vite
-- Tailwind CSS
+🔐 Authentication & Authorization – Secure login and role-based access control.
 
-## 📦 Installation
+🛠 Modular Codebase – Easy to maintain and extend.
 
-```bash
+🌐 MERN Stack Ready – Built with modern web technologies.
+
+🖥️ Admin Panel Preview
+
+🔗 Live Demo : https://kodetritechnologies.vercel.app
+
+
+(Replace with your actual deployed URL and screenshot image inside assets/ folder)
+
+🏗 Tech Stack
+
+Frontend (Admin Panel): React.js, Tailwind CSS
+
+Backend (API): Node.js, Express.js
+
+Database: MongoDB
+
+Other Tools: Mongoose, JWT, PM2, GitHub Actions (CI/CD)
+
+🚀 Getting Started
+
+Follow these steps to set up the project locally:
+
 git clone https://github.com/Vijayrandhave77/Kodetritechnologies.git
 cd admin
 npm install
 npm run dev
-```
