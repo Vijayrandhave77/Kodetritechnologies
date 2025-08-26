@@ -2,11 +2,28 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import googlecon from "../assets/icons/google.png";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import toast from "react-hot-toast";
 function Signup() {
   const [show, setShow] = useState({
     password: true,
     confirmpass: true,
   });
+  const [initialValues, setInitialValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  console.log(initialValues);
+
+  const handleChange = (e) => {
+    const { name, value, checked } = e.target;
+    if(name==="term" && checked){
+      toast.success("checked")
+    }
+    setInitialValues((pre) => ({ ...pre, [name]: value }));
+  };
+
   const handleEye = (type) => {
     setShow((prev) => ({
       ...prev,
@@ -31,8 +48,11 @@ function Signup() {
             <input
               type="text"
               id="name"
+              value={initialValues?.name}
+              name="name"
               className="input"
               placeholder="Enter your name"
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -42,8 +62,11 @@ function Signup() {
             <input
               type="text"
               id="email"
+              name="email"
+              value={initialValues?.email}
               className="input"
               placeholder="Enter your email"
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -54,8 +77,11 @@ function Signup() {
               <input
                 type={show.password ? "text" : "password"}
                 id="password"
+                name="password"
+                value={initialValues?.password}
                 className=""
                 placeholder="Enter your password"
+                onChange={handleChange}
               />
               <span
                 onClick={() => {
@@ -79,7 +105,9 @@ function Signup() {
                 type={show.confirmpass ? "text" : "password"}
                 id="confirmPass"
                 className=""
+                name="confirmPass"
                 placeholder="Re-confirm your password"
+                onChange={handleChange}
               />
               <span
                 onClick={() => {
@@ -98,7 +126,12 @@ function Signup() {
             className="flex items-centern gap-2"
             style={{ padding: "0.5rem 0rem" }}
           >
-            <input type="checkbox" id="term" />
+            <input
+              type="checkbox"
+              id="term"
+              name="term"
+              onChange={handleChange}
+            />
             <label htmlFor="term" className="font-bold select-none label">
               {" "}
               I accepted all terms & conditions.

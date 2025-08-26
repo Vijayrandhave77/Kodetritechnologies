@@ -7,7 +7,7 @@ const adminSchema = new mongoose.Schema({
     required: true,
   },
   mobile: {
-    type: Number,
+    type: String,
   },
   email: {
     type: String,
@@ -15,10 +15,6 @@ const adminSchema = new mongoose.Schema({
     unique: true,
   },
   password: {
-    type: String,
-    required: true,
-  },
-  confirmPassword: {
     type: String,
     required: true,
   },
@@ -31,18 +27,16 @@ const adminSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  profileImage: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "File",
-    default: null,
-  },
+  // profileImage: {
+  //   type: mongoose.SchemaTypes.ObjectId,
+  //   ref: "File",
+  //   default: null,
+  // },
   status: {
     type: String,
     default: "active",
   },
 });
-
-const Admin = mongoose.model("admin", adminSchema);
 
 adminSchema.pre("save", async function (next) {
   const user = this;
@@ -67,12 +61,14 @@ adminSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 adminSchema.pre("find", function (next) {
-  this.populate("profileImage");
+  // this.populate("profileImage");
   next();
 });
 adminSchema.pre("findOne", function (next) {
-  this.populate("profileImage");
+  // this.populate("profileImage");
   next();
 });
+
+const Admin = mongoose.model("admin", adminSchema);
 
 export default Admin;

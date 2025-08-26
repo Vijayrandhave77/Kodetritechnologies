@@ -1,34 +1,185 @@
+import { generateHashPassword } from "../../../helpers/hashPassword.js";
+import { generateToken } from "../../../helpers/JWT.js";
 import Admin from "../../../models/authentications/admins/admin.schema.js";
 
 export const adminSignup = async (req, res) => {
   try {
-    const body = req.body;
-    if (!body.name) {
+    const { name, email, password } = req.body;
+
+    if (!name) {
       return res
-        .status(500)
-        .json({ status: "erorr", message: "Name shuld be require" });
+        .status(400)
+        .json({ status: "error", message: "Name is required" });
     }
-    if (!body.email) {
+    if (!email) {
       return res
-        .status(500)
-        .json({ status: "error", message: "email should be require" });
+        .status(400)
+        .json({ status: "error", message: "Email is required" });
     }
-    if (!body.password) {
+    if (!password) {
       return res
-        .status(500)
-        .json({ status: "error", message: "password should be require" });
+        .status(400)
+        .json({ status: "error", message: "Password is required" });
     }
 
-    if (body.password !== body.confirmPassword) {
-      return res.status(500).json({
+    const isExistAdmin = await Admin.findOne({ email: email });
+    if (isExistAdmin) {
+      return res
+        .status(409)
+        .json({ status: "error", message: "Email is already registered" });
+    }
+
+    await Admin.create({ name, email, password });
+
+    return res
+      .status(201)
+      .json({ status: "success", message: "Admin created successfully" });
+  } catch (error) {
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const isExistAdmin = await Admin.findOne({ email });
+
+    if (!isExistAdmin) {
+      return res.status(404).json({
         status: "error",
-        message: "password and confirm password does not match",
+        message: "Admin with this email address was not found",
       });
     }
-    const response = new Admin(body);
-    await response.save();
-    return res.status(200).json({ response });
+
+    const isMatch = await isExistAdmin.comparePassword(password);
+
+    if (!isMatch) {
+      return res.status(401).json({
+        status: "error",
+        message: "Invalid password. Please try again",
+      });
+    }
+
+    const payload = {
+      _id: isExistAdmin._id,
+      name: isExistAdmin.name,
+      email: isExistAdmin.email,
+      mobile: isExistAdmin.mobile,
+      profileImage: isExistAdmin.profileImage || "",
+    };
+
+    const token = generateToken(payload);
+
+    res.cookie("adminAccessToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    });
+
+    return res.status(200).json({
+      status: "success",
+      message: "Admin logged in successfully",
+    });
   } catch (error) {
-    return res.status(500).json({ error });
+    return res.status(500).json({
+      status: "error",
+      message: "Something went wrong on the server",
+      error: error.message,
+    });
+  }
+};
+
+export const adminCreate = async (req, res) => {
+  try {
+    const payload = req.body;
+    const isExistAdmin = await Admin.findOne({ email: payload.email });
+
+    if (isExistAdmin) {
+      return res
+        .status(409)
+        .json({ status: "error", message: "Admin already exists" });
+    }
+
+    const response = new Admin(payload);
+    await response.save();
+
+    return res
+      .status(201)
+      .json({ status: "success", message: "Admin created successfully" });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error.message });
+  }
+};
+
+export const adminUpdate = async (req, res) => {
+  try {
+    const data = req.body;
+    const { id } = req.params;
+    const hashPassword = await generateHashPassword(data.password);
+    if (data.password) {
+      data.password = hashPassword;
+    }
+    const response = await Admin.findByIdAndUpdate({ _id: id }, { ...data });
+    if (!response) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "Admin not found" });
+    }
+    return res
+      .status(200)
+      .json({ status: "success", message: "Admin updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error.message });
+  }
+};
+
+export const adminDelete = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await Admin.findByIdAndDelete(id);
+
+    if (!response) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "Admin not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ status: "success", message: "Admin deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error.message });
+  }
+};
+
+export const adminLogOut = async (req, res) => {
+  try {
+    const adminAccessToken = req.cookies?.adminAccessToken;
+
+    if (!adminAccessToken) {
+      return res
+        .status(401)
+        .json({ status: "error", message: "No active session found" });
+    }
+
+    res.clearCookie("adminAccessToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    return res
+      .status(200)
+      .json({ status: "success", message: "Admin logged out successfully" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ status: "error", message: "Internal server error" });
   }
 };
