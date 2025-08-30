@@ -238,6 +238,7 @@ body {
     width: 10rem;
     top: 4.8rem;
     right: 0;
+    z-index: 10;
     position: absolute;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -265,7 +266,16 @@ body {
     font-size: large;
     cursor: pointer;
 }
-
+.dropdown>ul>li>a{
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    height: 2.5rem;
+    font-weight: 500;
+    font-size: large;
+    cursor: pointer;
+}
 .dropdown>ul>li:hover {
     color: #002434;
 }
@@ -866,6 +876,7 @@ body {
 .registerRight {
     width: 50%;
     height: 100%;
+    overflow-y: auto;
 }
 
 .loginRight {

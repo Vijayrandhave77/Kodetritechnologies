@@ -6,6 +6,7 @@ import {
   adminLogOut,
   adminSignup,
   adminUpdate,
+  getAdminData,
 } from "../../../controllers/authentications/admins/admin.controller.js";
 import { adminAuthMiddleware } from "../../../middlewares/adminAuthMiddleware.js";
 
@@ -13,6 +14,7 @@ const router = express.Router();
 
 router.post("/signup", adminSignup);
 router.post("/login", adminLogin);
+router.get("/getAdmin", adminAuthMiddleware, getAdminData);
 router.post("/create", adminCreate);
 router.patch("/update/:id", adminAuthMiddleware, adminUpdate);
 router.patch("/delete/:id", adminAuthMiddleware, adminDelete);

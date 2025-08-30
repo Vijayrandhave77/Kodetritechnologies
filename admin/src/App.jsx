@@ -47,6 +47,7 @@ import Categories from "./views/configuration/masters/Categories";
 import Regions from "./views/configuration/masters/Regions";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import ProtectedRoutes from "./authentications/ProtectedRoutes";
 function App() {
   return (
     <BrowserRouter>
@@ -111,8 +112,22 @@ function App() {
           />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/signup" element={<Signup />}/>
-        <Route path="/login" element={<Login />}/>
+        <Route
+          path="/signup"
+          element={
+            <ProtectedRoutes>
+              <Signup />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoutes>
+              <Login />
+            </ProtectedRoutes>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

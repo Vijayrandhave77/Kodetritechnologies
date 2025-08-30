@@ -1,27 +1,48 @@
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import googlecon from "../assets/icons/google.png";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import BasicProvider from "../authentications/BasicProvider";
+import handleSubmitHelper from "../helpers/handleSubmitHelper";
 import toast from "react-hot-toast";
 function Signup() {
+  const basicProvider = BasicProvider();
+
+  const validation = [
+    {
+      key: "name",
+      required: true,
+      maxLength: 3,
+    },
+    {
+      key: "email",
+      required: true,
+      maxLength: 3,
+    },
+    {
+      key: "password",
+      required: true,
+      maxLength: 8,
+    },
+  ];
+
   const [show, setShow] = useState({
-    password: true,
-    confirmpass: true,
+    password: false,
+    confirmpass: false,
   });
   const [initialValues, setInitialValues] = useState({
     name: "",
     email: "",
     password: "",
+    confirmPass: "",
   });
-
-  console.log(initialValues);
-
+  const [error, setError] = useState({});
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
-    if(name==="term" && checked){
-      toast.success("checked")
-    }
-    setInitialValues((pre) => ({ ...pre, [name]: value }));
+    setInitialValues((pre) => ({
+      ...pre,
+      [name]: name == "term" ? checked : value,
+    }));
   };
 
   const handleEye = (type) => {
@@ -29,6 +50,36 @@ function Signup() {
       ...prev,
       [type]: !prev[type],
     }));
+  };
+
+  const handelSubmit = async () => {
+    if (initialValues.password !== initialValues.confirmPass) {
+      toast.error("Password and Confirm Password do not match");
+      return;
+    } else if (!initialValues.term) {
+      toast.error("Please accept the Terms & Conditions to continue.");
+      return;
+    }
+    const data = handleSubmitHelper(initialValues, validation, setError);
+    try {
+      if (data) {
+        const response = await basicProvider.postMethod("admin/signup", data);
+        if (response.status === "success") {
+          toast.success(response.message);
+          setInitialValues({
+            name: "",
+            email: "",
+            password: "",
+            confirmPass: "",
+            term: false,
+          });
+        } else {
+          toast.error(response.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="signupPage">
@@ -50,10 +101,13 @@ function Signup() {
               id="name"
               value={initialValues?.name}
               name="name"
-              className="input"
+              className={`input ${error.name && "customeErrorInput"}`}
               placeholder="Enter your name"
               onChange={handleChange}
             />
+            {error?.name && (
+              <span className="customeErrorMessage">{error.name}</span>
+            )}
           </div>
           <div>
             <label htmlFor="email" className="label">
@@ -64,16 +118,23 @@ function Signup() {
               id="email"
               name="email"
               value={initialValues?.email}
-              className="input"
+              className={`input ${error.email && "customeErrorInput"}`}
               placeholder="Enter your email"
               onChange={handleChange}
             />
+            {error?.email && (
+              <span className="customeErrorMessage">{error.email}</span>
+            )}
           </div>
           <div>
             <label htmlFor="password" className="label">
               Password
             </label>
-            <div className="input-password">
+            <div
+              className={`input-password ${
+                error.password && "customeErrorInput"
+              }`}
+            >
               <input
                 type={show.password ? "text" : "password"}
                 id="password"
@@ -95,6 +156,9 @@ function Signup() {
                 )}
               </span>
             </div>
+            {error?.password && (
+              <span className="customeErrorMessage">{error.password}</span>
+            )}
           </div>
           <div>
             <label htmlFor="confirmPass" className="label">
@@ -137,7 +201,9 @@ function Signup() {
               I accepted all terms & conditions.
             </label>
           </div>
-          <div className="signup">Sign up</div>
+          <div className="signup" onClick={handelSubmit}>
+            Sign up
+          </div>
           <div className="flex justify-center items-center gap-2">
             <span className="or"></span>
             OR

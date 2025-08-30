@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "*",
+  origin: process.env.FRONTEND_URL,
   methods: "GET,POST,PATCH,DELETE",
   allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   credentials: true,

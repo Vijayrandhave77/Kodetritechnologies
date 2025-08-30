@@ -77,14 +77,15 @@ export const adminLogin = async (req, res) => {
 
     res.cookie("adminAccessToken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: "None",
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
     return res.status(200).json({
       status: "success",
       message: "Admin logged in successfully",
+      data: isExistAdmin,
     });
   } catch (error) {
     return res.status(500).json({
@@ -92,6 +93,25 @@ export const adminLogin = async (req, res) => {
       message: "Something went wrong on the server",
       error: error.message,
     });
+  }
+};
+
+export const getAdminData = async (req, res) => {
+  try {
+    const { _id } = req.admin;
+    const response = await Admin.findById(_id).select("-password");
+    if (!response) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "Admin not found" });
+    }
+    return res.status(200).json({
+      status: "success",
+      message: "Admin data fetched successfully",
+      data: response,
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error.message });
   }
 };
 
@@ -170,8 +190,8 @@ export const adminLogOut = async (req, res) => {
 
     res.clearCookie("adminAccessToken", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: "None",
     });
 
     return res

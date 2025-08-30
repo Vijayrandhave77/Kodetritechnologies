@@ -141,3 +141,12 @@
 .span {
 	color: red;
 }
+
+.customeErrorMessage {
+	color: red;
+	font-size: smaller;
+}
+
+.customeErrorInput {
+	border: 1px solid red !important;
+}
