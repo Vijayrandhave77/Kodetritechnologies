@@ -23,7 +23,7 @@ export default function BasicProvider() {
       const response = await axios.get(`${baseUrl}/api/${endpoint}`, config);
       return response.data;
     } catch (error) {
-      return erorr;
+      return error.response.data;
     }
   };
 
@@ -44,28 +44,28 @@ export default function BasicProvider() {
   const patchMethod = async (endpoint, data) => {
     const config = getHeaders(data);
     try {
-      const response = await axios.post(
+      const response = await axios.patch(
         `${baseUrl}/api/${endpoint}`,
         data,
         config
       );
       return response.data;
     } catch (error) {
-      return error;
+      return error.response.data;
     }
   };
 
   const deleteMethod = async (endpoint, data) => {
     const config = getHeaders(data);
     try {
-      const response = await axios.post(
+      const response = await axios.delete(
         `${baseUrl}/api/${endpoint}`,
         data,
         config
       );
       return response.data;
     } catch (error) {
-      return error;
+      return error.response.data;
     }
   };
 

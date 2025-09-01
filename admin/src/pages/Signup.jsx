@@ -63,7 +63,10 @@ function Signup() {
     const data = handleSubmitHelper(initialValues, validation, setError);
     try {
       if (data) {
-        const response = await basicProvider.postMethod("admin/signup", data);
+        const response = await basicProvider.postMethod(
+          "users/admin/signup",
+          data
+        );
         if (response.status === "success") {
           toast.success(response.message);
           setInitialValues({

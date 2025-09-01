@@ -6,7 +6,8 @@ const PORT = process.env.PORT || 5000;
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import adminRouter from "./routers/authentications/admins/admin.router.js";
+import usersRouter from "./routers/authentications/users.router.js";
+import ConfigurationRouter from "./routers/configuration/setting.master.router.js";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,7 +26,8 @@ app.get("/", (req, res) => {
   res.send("Kodetritechnologies api is running...");
 });
 
-app.use("/api/admin", adminRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/configuration", ConfigurationRouter);
 
 app.listen(PORT, () => {
   console.log(`Kodetritechnologies server is running on port ${PORT}`);

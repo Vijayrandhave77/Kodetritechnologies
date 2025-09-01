@@ -45,7 +45,10 @@ function Login() {
       }
       const data = handleSubmitHelper(initialValues, validation, setError);
       if (data) {
-        const response = await basicProvider.postMethod("admin/login", data);
+        const response = await basicProvider.postMethod(
+          "users/admin/login",
+          data
+        );
         if (response.status === "success") {
           toast.success(response.message);
           setAdmin(response?.data);

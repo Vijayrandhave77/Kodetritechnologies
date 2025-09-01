@@ -3,14 +3,14 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function ProtectedRoutes({ children }) {
-  const { admin } = useContext(AuthContext);
+  const { admin, loading } = useContext(AuthContext);
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (admin) {
+    if (!loading && admin) {
       navigate("/");
     }
-  }, [admin, navigate]);
+  }, [admin, loading, navigate]);
   return <div>{children}</div>;
 }
 

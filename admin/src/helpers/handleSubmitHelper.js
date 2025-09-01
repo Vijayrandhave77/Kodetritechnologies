@@ -1,27 +1,28 @@
 export default function handleSubmitHelper(
   initialValues,
-  validation,
+  validation = [],
   setError
 ) {
   let status = true;
   const newErrors = {};
-  validation.forEach((rule) => {
-    const value = (initialValues[rule.key] || "").trim();
+  validation?.forEach((rule) => {
+    const value = (initialValues[rule?.key] || "").trim();
 
-    if (rule.required && !value) {
-      (newErrors[rule.key] = `${rule.key} field is required`), (status = false);
-    }
-    if (value.length < rule.maxLength) {
-      (newErrors[
-        rule.key
-      ] = `${rule.key} field length must be greater than or equal to ${rule.maxLength}`),
+    if (rule?.required && !value) {
+      (newErrors[rule?.key] = `${rule?.key} field is required`),
         (status = false);
     }
-    if (rule.key === "email") {
+    if (value?.length < rule.maxLength) {
+      (newErrors[
+        rule?.key
+      ] = `${rule?.key} must be at least ${rule?.maxLength} characters.`),
+        (status = false);
+    }
+    if (rule?.key === "email") {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      const isValid = emailRegex.test(initialValues.email);
+      const isValid = emailRegex.test(initialValues?.email);
       if (!isValid) {
-        (newErrors[rule.key] = `Enter valid ${rule.key} address`),
+        (newErrors[rule?.key] = `Enter valid ${rule?.key} address`),
           (status = false);
       }
     }

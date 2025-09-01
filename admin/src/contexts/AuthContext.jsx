@@ -6,12 +6,32 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const basicProvider = BasicProvider();
   const [admin, setAdmin] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [website, setWebsite] = useState(null);
 
   const getAdmin = async () => {
     try {
-      const response = await basicProvider.getMethod("admin/getAdmin");
+      const response = await basicProvider.getMethod("users/admin/getAdmin");
       if (response?.status === "success") {
         setAdmin(response?.data);
+      } else {
+        setAdmin(null);
+      }
+    } catch (error) {
+      console.log(error);
+      setAdmin(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchWebsiteData = async () => {
+    try {
+      const response = await basicProvider.getMethod("configuration/website");
+      if (response.status === "success") {
+        setWebsite(response.data);
+      } else {
+        setWebsite(null);
       }
     } catch (error) {
       console.log(error);
@@ -20,6 +40,13 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     getAdmin();
+    fetchWebsiteData();
   }, []);
-  return <AuthContext value={{ admin, setAdmin }}>{children}</AuthContext>;
+  return (
+    <AuthContext
+      value={{ admin, setAdmin, loading, setLoading, website, setWebsite }}
+    >
+      {children}
+    </AuthContext>
+  );
 };

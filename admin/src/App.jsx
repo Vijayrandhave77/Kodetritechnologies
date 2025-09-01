@@ -48,11 +48,19 @@ import Regions from "./views/configuration/masters/Regions";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ProtectedRoutes from "./authentications/ProtectedRoutes";
+import ProtectedPageRoutes from "./authentications/ProtectedPageRoutes";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AdminLayout />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedPageRoutes>
+              <AdminLayout />
+            </ProtectedPageRoutes>
+          }
+        >
           <Route path="/" element={<DashboardPage />} />
           <Route path="/product/all" element={<Products />} />
           <Route path="/product/create" element={<ProductCreate />} />

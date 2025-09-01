@@ -7,12 +7,12 @@ import { AuthContext } from "../contexts/AuthContext";
 import BasicProvider from "../authentications/BasicProvider";
 
 function Header() {
-  const { admin, setAdmin } = useContext(AuthContext);
+  const { admin, setAdmin, website } = useContext(AuthContext);
   const basicProvider = BasicProvider();
   const [show, setShow] = useState(false);
   const handelLogout = async () => {
     try {
-      const response = await basicProvider.getMethod("admin/logout");
+      const response = await basicProvider.getMethod("users/admin/logout");
       console.log(response);
       if (response.status === "success") {
         toast.success(response.message);
@@ -31,28 +31,37 @@ function Header() {
   return (
     <div className="header">
       <IoMenuOutline className="hamburger" />
-      <img
-        onClick={handleDropDown}
-        src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"
-        alt=""
-      />
-      <div
-        className="dropdown"
-        style={{ display: `${show ? "inline-block" : "none"}` }}
-      >
-        <ul className="dropLinks">
-          <li className="drop-item">
-            <NavLink to={`admin/edit/${admin?._id}`}>
-              <CgProfile />
-              Profile
+      <span className="flex gap-2 items-center">
+        {website && (
+          <div className="websiteButtonContainer">
+            <NavLink to={website?.domain} target="_blank">
+              <button className="gotoWebsite">Go to website</button>
             </NavLink>
-          </li>
-          <li onClick={handelLogout} className="drop-item">
-            <IoLogOutSharp />
-            LogOut
-          </li>
-        </ul>
-      </div>
+          </div>
+        )}
+        <img
+          onClick={handleDropDown}
+          src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"
+          alt=""
+        />
+        <div
+          className="dropdown"
+          style={{ display: `${show ? "inline-block" : "none"}` }}
+        >
+          <ul className="dropLinks">
+            <li className="drop-item">
+              <NavLink to={`admin/edit/${admin?._id}`}>
+                <CgProfile />
+                Profile
+              </NavLink>
+            </li>
+            <li onClick={handelLogout} className="drop-item">
+              <IoLogOutSharp />
+              LogOut
+            </li>
+          </ul>
+        </div>
+      </span>
     </div>
   );
 }
