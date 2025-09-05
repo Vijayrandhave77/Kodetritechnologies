@@ -1,43 +1,50 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const adminSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const adminSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    mobile: {
+      type: String,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    gender: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    // profileImage: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "File",
+    //  required:true,
+    //   default: null,
+    // },
+    status: {
+      type: String,
+      default: "active",
+    },
+    deletedAt: {
+      type: Date,
+      default: null,
+    },
   },
-  mobile: {
-    type: String,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  gender: {
-    type: String,
-  },
-  address: {
-    type: String,
-  },
-  description: {
-    type: String,
-  },
-  // profileImage: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "File",
-  //  required:true,
-  //   default: null,
-  // },
-  status: {
-    type: String,
-    default: "active",
-  },
-});
+  { timestamps: true }
+);
 
 adminSchema.pre("save", async function (next) {
   const user = this;

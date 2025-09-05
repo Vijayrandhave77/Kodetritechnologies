@@ -1134,3 +1134,12 @@ body {
     transform: scale(1.1, 1.1);
     background-color: #71c6ed;
 }
+
+
+/* status page */
+
+.statusCard {
+    width: 100%;
+    background-color: red;
+    margin-top: 1rem;
+}

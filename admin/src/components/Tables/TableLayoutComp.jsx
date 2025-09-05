@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdAdd } from "react-icons/md";
+import BasicProvider from "../../authentications/BasicProvider";
+import toast from "react-hot-toast";
 
 function TableLayoutComp({
   children,
@@ -7,11 +9,35 @@ function TableLayoutComp({
   showSwitch = false,
   required = false,
   addButton = false,
+  status = true,
+  endPoint,
+  data,
+  refresh,
 }) {
-  const [toggle, setToggle] = useState(false);
+  const basicProvider = BasicProvider();
+  const [toggle, setToggle] = useState(status);
+
+  useEffect(() => {
+    setToggle(status);
+  }, [status]);
+
   const handleToggle = () => {
-    setToggle(!toggle);
+    setToggle((prev) => !prev);
   };
+
+  const handelUpdateStatus = async () => {
+    const response = await basicProvider.postMethod(endPoint, {
+      ...data,
+      status: data.status === "active" ? "inActive" : "active",
+    });
+    if (response.status === "success") {
+      toast.success(response.message);
+      refresh();
+    } else {
+      toast.error(response.message);
+    }
+  };
+
   const buttonCss = {
     justifyContent: `${toggle ? "right" : "left"}`,
     backgroundColor: `${toggle ? "#0D6EFD" : "white"}`,
@@ -21,8 +47,8 @@ function TableLayoutComp({
   };
 
   const cardTemplateCss = {
-    height: `${toggle ? "2.7rem" : ""}`,
-    overflow: `${toggle ? "hidden" : ""}`,
+    height: `${toggle ? "" : "2.7rem"}`,
+    overflow: `${toggle ? "" : "hidden"}`,
   };
   return (
     <div className="cardTemplate" style={cardTemplateCss}>
@@ -33,7 +59,10 @@ function TableLayoutComp({
         {showSwitch && (
           <div
             className="tableToggleButton"
-            onClick={handleToggle}
+            onClick={() => {
+              handleToggle();
+              handelUpdateStatus();
+            }}
             style={buttonCss}
           >
             <div className="toggle-switch" style={switchCss}></div>

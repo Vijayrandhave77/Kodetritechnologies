@@ -3,7 +3,7 @@ import Website from "../../../models/configuration/setting/website.schema.js";
 export const getWebsite = async (req, res) => {
   try {
     const { _id } = req.admin;
-    const isExist = await Website.findOne({ admin: _id });
+    const isExist = await Website.findOne({ admin: _id, deletedAt: null });
     if (!isExist) {
       return res
         .status(404)
@@ -28,7 +28,7 @@ export const createWebsite = async (req, res) => {
     const { _id } = req.admin;
     const { domain } = req.body;
 
-    const isDomain = await Website.findOne({ domain });
+    const isDomain = await Website.findOne({ domain, deletedAt: null });
     if (isDomain) {
       return res
         .status(409)
@@ -63,7 +63,10 @@ export const updateWebsite = async (req, res) => {
     const websiteId = req.params.id;
     const data = req.body;
 
-    const isExist = await Website.findOne({ domain: data.domain });
+    const isExist = await Website.findOne({
+      domain: data.domain,
+      deletedAt: null,
+    });
 
     if (isExist) {
       return res

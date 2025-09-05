@@ -1,35 +1,47 @@
 import mongoose from "mongoose";
 
-const websiteSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const websiteSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    domain: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+    },
+    mobile: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    //   logo: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "File",
+    //     required: true,
+    //   },
+    admin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin",
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["active", "inActive", "blocked"],
+      default: "active",
+    },
+    deletedAt: {
+      type: Date,
+      default: null,
+    },
   },
-  domain: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  email: {
-    type: String,
-  },
-  mobile: {
-    type: String,
-  },
-  address: {
-    type: String,
-  },
-  //   logo: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "File",
-  //     required: true,
-  //   },
-  admin: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Admin",
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 
 const Website = mongoose.model("Website", websiteSchema);
 

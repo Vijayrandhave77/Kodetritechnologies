@@ -1,6 +1,7 @@
 import { verifyToken } from "../helpers/JWT.js";
+import Website from "../models/configuration/setting/website.schema.js";
 
-export const adminAuthMiddleware = (req, res, next) => {
+export const adminAuthMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   const tokenFromCookie = req.cookies?.adminAccessToken;
   let token;
@@ -17,7 +18,12 @@ export const adminAuthMiddleware = (req, res, next) => {
 
   try {
     const decoded = verifyToken(token);
-    req.admin = decoded;
+
+    const websiteId = await Website.findOne({ admin: decoded._id }).select({
+      _id: 1,
+    });
+
+    req.admin = { ...decoded, website: websiteId._id };
     next();
   } catch (err) {
     console.log("JWT Error:", err.message);

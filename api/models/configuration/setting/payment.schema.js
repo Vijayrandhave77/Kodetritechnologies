@@ -1,22 +1,41 @@
 import mongoose from "mongoose";
 
-const paymentSchema = new mongoose.Schema({
-  key_id: {
-    type: String,
-    unique: true,
+const paymentSchema = new mongoose.Schema(
+  {
+    key_id: {
+      type: String,
+      unique: true,
+    },
+    key_secret: {
+      type: String,
+      unique: true,
+    },
+    gatway: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["active", "inActive"],
+      default: "active",
+    },
+    admin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin",
+      required: true,
+    },
+    website: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Website",
+      required: true,
+    },
+    deletedAt: {
+      type: Date,
+      default: null,
+    },
   },
-  key_secret: {
-    type: String,
-    unique: true,
-  },
-  status: {
-    type: String,
-  },
-  admin: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Admin",
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 
-export default Payment = mongoose.model("Payment", paymentSchema);
+const Payment = mongoose.model("Payment", paymentSchema);
+export default Payment;

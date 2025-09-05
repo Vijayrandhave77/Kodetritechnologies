@@ -65,6 +65,18 @@ export const adminLogin = async (req, res) => {
       });
     }
 
+    const checkPermition = await Admin.findOne({
+      email,
+      deletedAt: null,
+      status: "active",
+    });
+    if (!checkPermition) {
+      return res.status(403).json({
+        status: "error",
+        message: `Admin is ${isExistAdmin?.status} by Super Admin`,
+      });
+    }
+
     const payload = {
       _id: isExistAdmin._id,
       name: isExistAdmin.name,
@@ -118,7 +130,11 @@ export const getAdminData = async (req, res) => {
 export const adminCreate = async (req, res) => {
   try {
     const payload = req.body;
-    const isExistAdmin = await Admin.findOne({ email: payload.email });
+    const isExistAdmin = await Admin.findOne({
+      email: payload.email,
+      deletedAt: null,
+      status: "active",
+    });
 
     if (isExistAdmin) {
       return res

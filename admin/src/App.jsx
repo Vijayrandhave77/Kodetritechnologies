@@ -95,6 +95,7 @@ function App() {
           <Route path="/master/brands" element={<Brands />} />
           <Route path="/master/tages" element={<Tages />} />
           <Route path="/master/status" element={<Status />} />
+          <Route path="/master/status/:id/edit" element={<Status />} />
           <Route path="/master/units" element={<Units />} />
           <Route path="/customer/all" element={<Customer />} />
           <Route path="/customer/create" element={<CustomerCreate />} />

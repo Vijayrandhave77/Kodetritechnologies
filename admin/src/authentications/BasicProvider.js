@@ -60,8 +60,8 @@ export default function BasicProvider() {
     try {
       const response = await axios.delete(
         `${baseUrl}/api/${endpoint}`,
-        data,
-        config
+        config,
+        data
       );
       return response.data;
     } catch (error) {

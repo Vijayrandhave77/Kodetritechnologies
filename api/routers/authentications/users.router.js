@@ -19,6 +19,6 @@ router.post("/admin/login", adminLogin);
 router.get("/admin/getAdmin", adminAuthMiddleware, getAdminData);
 router.post("/admin/create", adminCreate);
 router.patch("/admin/update/:id", adminAuthMiddleware, adminUpdate);
-router.patch("/admin/delete/:id", adminAuthMiddleware, adminDelete);
+router.delete("/admin/delete/:id", adminAuthMiddleware, adminDelete);
 router.get("/admin/logout", adminAuthMiddleware, adminLogOut);
 export default router;

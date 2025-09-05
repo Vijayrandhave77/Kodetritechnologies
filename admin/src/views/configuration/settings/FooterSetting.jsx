@@ -3,12 +3,48 @@ import TableLayoutComp from "../../../components/Tables/TableLayoutComp";
 import { FaSquareInstagram } from "react-icons/fa6";
 import SummernoteEditor from "../../../components/textEditor/SummernoteEditor";
 import { useState } from "react";
+import handleSubmitHelper from "../../../helpers/handleSubmitHelper";
 
 function FooterSetting() {
+  const validations = [
+    {
+      key: "email",
+      required: true,
+      maxLength: 8,
+    },
+    {
+      key: "mobile",
+      required: true,
+      maxLength: 10,
+    },
+  ];
+  const [error, setError] = useState({});
+  const [address, setAddress] = useState({
+    address: "",
+    email: "",
+    mobile: "",
+    time: "",
+    description: "",
+  });
+
+  console.log(address);
+
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+    setAddress((pre) => ({ ...pre, [name]: value }));
+  };
+
   const [initialValues, setInitialValues] = useState({
     name: "",
     content: "",
   });
+
+  const handleSubmit = async () => {
+    const data = handleSubmitHelper(address, validations, setError);
+    if (data) {
+      console.log(data);
+    }
+  };
   return (
     <div>
       <div className="footerPage cp">
@@ -16,52 +52,72 @@ function FooterSetting() {
           <div className="addresscard cp">
             <div>
               <label htmlFor="address" className="label">
-                Address <span className="span">*</span>
+                Address
               </label>
               <textarea
                 name="address"
+                value={address.address}
                 id="address"
                 className="input"
                 style={{ minHeight: "4rem" }}
+                onChange={handleAddressChange}
               ></textarea>
             </div>
             <div>
               <label htmlFor="address" className="label">
-                Email Address <span className="span">*</span>
+                Email Address
               </label>
               <input
                 name="email"
+                value={address.email}
                 id="email"
-                className="input"
+                className={`input ${error.email && "customeErrorInput"}`}
                 placeholder="Enter your email"
+                onChange={handleAddressChange}
               ></input>
+              {error?.email && (
+                <span className="customeErrorMessage">{error.email}</span>
+              )}
             </div>
             <div>
               <label htmlFor="mobile" className="label">
-                Mobile <span className="span">*</span>
+                Mobile
               </label>
               <input
                 name="mobile"
+                value={address.mobile}
                 id="mobile"
-                className="input"
+                className={`input ${error.mobile && "customeErrorInput"}`}
                 placeholder="Enter your mobile number"
+                onChange={handleAddressChange}
               ></input>
+              {error?.mobile && (
+                <span className="customeErrorMessage">{error.mobile}</span>
+              )}
             </div>
             <div>
               <label htmlFor="time" className="label">
-                Time schedule <span className="span">*</span>
+                Time schedule
               </label>
-              <input name="time" id="time" className="input"></input>
+              <input
+                name="time"
+                value={address.time}
+                id="time"
+                className="input"
+                onChange={handleAddressChange}
+              ></input>
             </div>
             <div>
               <label htmlFor="description" className="label">
-                Description <span className="span">*</span>
+                Description
               </label>
               <textarea
                 name="description"
+                value={address.description}
                 id="description"
                 className="input"
                 style={{ minHeight: "4rem" }}
+                onChange={handleAddressChange}
               ></textarea>
             </div>
             <div>
@@ -121,7 +177,7 @@ function FooterSetting() {
             </div>
           </div>
         </TableLayoutComp>
-        <TableLayoutComp title={"Support Center"}>
+        <TableLayoutComp title={"Support Links"}>
           <div className="supportCard cp">
             <div>
               <SummernoteEditor
