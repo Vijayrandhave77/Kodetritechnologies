@@ -1,0 +1,63 @@
+import Store from "../../../models/configuration/setting/store.schema.js";
+
+export const getStore = async (req, res) => {
+  try {
+    const { _id, website } = req.admin;
+    const { type } = req.params;
+    const query = {
+      admin: _id,
+      website,
+      type,
+    };
+    const response = await Store.findOne(query);
+    if (!response) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "Store not found" });
+    }
+    return res.status(200).json({
+      status: "success",
+      message: "Store fetched successfully",
+      data: response,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const createStore = async (req, res) => {
+  try {
+    const { _id, website } = req.admin;
+    const data = req.body;
+    const query = {
+      admin: _id,
+      website,
+      type: data.type,
+    };
+
+    const response = await Store.findOneAndUpdate(
+      query,
+      { ...data, name: data.type },
+      {
+        upsert: true,
+        new: true,
+      }
+    );
+
+    return res.status(200).json({
+      status: "success",
+      message: "Updated successfully",
+      data: response,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
