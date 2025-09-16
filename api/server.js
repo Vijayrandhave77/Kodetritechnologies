@@ -8,6 +8,9 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import usersRouter from "./routers/authentications/users.router.js";
 import ConfigurationRouter from "./routers/configuration/setting.master.router.js";
+import CmsRouter from "./routers/cms/cms.router.js";
+import EcommerceRouter from "./routers/ecommerce/ecommerce.router.js";
+import DashboardlogsRouter from "./routers/dashbordlogs/dashboardlogs.router.js";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,6 +31,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", usersRouter);
 app.use("/api/configuration", ConfigurationRouter);
+app.use("/api/cms", CmsRouter);
+app.use("/api/ecommerce", EcommerceRouter);
+app.use("/api/dashboardlogs", DashboardlogsRouter);
 
 app.listen(PORT, () => {
   console.log(`Kodetritechnologies server is running on port ${PORT}`);

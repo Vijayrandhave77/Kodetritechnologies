@@ -58,9 +58,8 @@ function AdminSidebar() {
               <IoIosArrowForward
                 className="arrow"
                 style={{
-                  transform: `${
-                    show && type == "product" ? "rotate(90deg)" : ""
-                  }`,
+                  transform: `${show && type == "product" ? "rotate(90deg)" : ""
+                    }`,
                 }}
               />
             </li>
@@ -71,17 +70,17 @@ function AdminSidebar() {
               }}
             >
               <li>
-                <NavLink to="product/all">
+                <NavLink to="ecommerce/product/all">
                   <span>All Products</span>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="product/create">
+                <NavLink to="ecommerce/product/create">
                   <span>Add Products</span>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="product/trash">
+                <NavLink to="ecommerce/product/trash">
                   <span>Trash Products</span>
                 </NavLink>
               </li>
@@ -100,9 +99,8 @@ function AdminSidebar() {
               <IoIosArrowForward
                 className="arrow"
                 style={{
-                  transform: `${
-                    show && type == "order" ? "rotate(90deg)" : ""
-                  }`,
+                  transform: `${show && type == "order" ? "rotate(90deg)" : ""
+                    }`,
                 }}
               />
             </li>
@@ -113,12 +111,12 @@ function AdminSidebar() {
               }}
             >
               <li>
-                <NavLink to="order/all">
+                <NavLink to="ecommerce/order/all">
                   <span>All Orders</span>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="order/trash">
+                <NavLink to="ecommerce/order/trash">
                   <span>Trash Orders</span>
                 </NavLink>
               </li>
@@ -136,9 +134,8 @@ function AdminSidebar() {
               <IoIosArrowForward
                 className="arrow"
                 style={{
-                  transform: `${
-                    show && type == "coupons" ? "rotate(90deg)" : ""
-                  }`,
+                  transform: `${show && type == "coupons" ? "rotate(90deg)" : ""
+                    }`,
                 }}
               />
             </li>
@@ -149,18 +146,18 @@ function AdminSidebar() {
               }}
             >
               <li>
-                <NavLink to="coupan/all">
+                <NavLink to="ecommerce/coupan/all">
                   <span>All Coupons</span>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="coupan/create">
+                <NavLink to="ecommerce/coupan/create">
                   <span>Add Coupons</span>
                 </NavLink>
               </li>
             </ul>
             <li>
-              <NavLink to="notifications" className="customeRoute">
+              <NavLink to="ecommerce/notifications" className="customeRoute">
                 <span>
                   <IoMdNotifications />
                   Notifications
@@ -168,18 +165,10 @@ function AdminSidebar() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="reviews" className="customeRoute">
+              <NavLink to="ecommerce/reviews" className="customeRoute">
                 <span>
                   <MdReviews />
                   All Reviews
-                </span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="wallets" className="customeRoute">
-                <span>
-                  <IoWalletSharp />
-                  Wallets
                 </span>
               </NavLink>
             </li>
@@ -212,8 +201,8 @@ function AdminSidebar() {
                   show && type == "cms"
                     ? "inline-block"
                     : cms
-                    ? "inline-block"
-                    : "none",
+                      ? "inline-block"
+                      : "none",
               }}
             >
               <li
@@ -230,9 +219,8 @@ function AdminSidebar() {
                 <IoIosArrowForward
                   className="arrow"
                   style={{
-                    transform: `${
-                      show && type == "pages" ? "rotate(90deg)" : ""
-                    }`,
+                    transform: `${show && type == "pages" ? "rotate(90deg)" : ""
+                      }`,
                   }}
                 />
               </li>
@@ -272,9 +260,8 @@ function AdminSidebar() {
                 <IoIosArrowForward
                   className="arrow"
                   style={{
-                    transform: `${
-                      show && type == "blogs" ? "rotate(90deg)" : ""
-                    }`,
+                    transform: `${show && type == "blogs" ? "rotate(90deg)" : ""
+                      }`,
                   }}
                 />
               </li>
@@ -314,9 +301,8 @@ function AdminSidebar() {
                 <IoIosArrowForward
                   className="arrow"
                   style={{
-                    transform: `${
-                      show && type == "navigation" ? "rotate(90deg)" : ""
-                    }`,
+                    transform: `${show && type == "navigation" ? "rotate(90deg)" : ""
+                      }`,
                   }}
                 />
               </li>
@@ -360,9 +346,8 @@ function AdminSidebar() {
                 <IoIosArrowForward
                   className="arrow"
                   style={{
-                    transform: `${
-                      show && type == "slider" ? "rotate(90deg)" : ""
-                    }`,
+                    transform: `${show && type == "slider" ? "rotate(90deg)" : ""
+                      }`,
                   }}
                 />
               </li>
@@ -402,9 +387,8 @@ function AdminSidebar() {
                 <IoIosArrowForward
                   className="arrow"
                   style={{
-                    transform: `${
-                      show && type == "contact" ? "rotate(90deg)" : ""
-                    }`,
+                    transform: `${show && type == "contact" ? "rotate(90deg)" : ""
+                      }`,
                   }}
                 />
               </li>
@@ -439,9 +423,8 @@ function AdminSidebar() {
                 <IoIosArrowForward
                   className="arrow"
                   style={{
-                    transform: `${
-                      show && type == "faq" ? "rotate(90deg)" : ""
-                    }`,
+                    transform: `${show && type == "faq" ? "rotate(90deg)" : ""
+                      }`,
                   }}
                 />
               </li>
@@ -486,9 +469,8 @@ function AdminSidebar() {
               <IoIosArrowForward
                 className="arrow"
                 style={{
-                  transform: `${
-                    show && type == "settings" ? "rotate(90deg)" : ""
-                  }`,
+                  transform: `${show && type == "settings" ? "rotate(90deg)" : ""
+                    }`,
                 }}
               />
             </li>
@@ -532,9 +514,8 @@ function AdminSidebar() {
               <IoIosArrowForward
                 className="arrow"
                 style={{
-                  transform: `${
-                    show && type == "master" ? "rotate(90deg)" : ""
-                  }`,
+                  transform: `${show && type == "master" ? "rotate(90deg)" : ""
+                    }`,
                 }}
               />
             </li>
@@ -569,11 +550,6 @@ function AdminSidebar() {
                   <span>Status</span>
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="master/units" className="customeRoute">
-                  <span>Units</span>
-                </NavLink>
-              </li>
             </ul>
           </ul>
         </div>
@@ -606,9 +582,8 @@ function AdminSidebar() {
               <IoIosArrowForward
                 className="arrow"
                 style={{
-                  transform: `${
-                    show && type == "customer" ? "rotate(90deg)" : ""
-                  }`,
+                  transform: `${show && type == "customer" ? "rotate(90deg)" : ""
+                    }`,
                 }}
               />
             </li>
@@ -631,88 +606,6 @@ function AdminSidebar() {
               <li>
                 <NavLink to="customer/trash" className="customeRoute">
                   <span>Trash Customers</span>
-                </NavLink>
-              </li>
-            </ul>
-            <li
-              onClick={() => {
-                handleDropdown("admin");
-                setType("admin");
-              }}
-            >
-              <span>
-                <FaUserShield />
-                Admins
-              </span>
-              <IoIosArrowForward
-                className="arrow"
-                style={{
-                  transform: `${
-                    show && type == "admin" ? "rotate(90deg)" : ""
-                  }`,
-                }}
-              />
-            </li>
-            <ul
-              className="inner_sidelinks"
-              style={{
-                display: show && type == "admin" ? "inline-block" : "none",
-              }}
-            >
-              <li>
-                <NavLink to="admin/all" className="customeRoute">
-                  <span>All Admins</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="admin/create" className="customeRoute">
-                  <span>Add Admins</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="admin/trash" className="customeRoute">
-                  <span>Trash Admins</span>
-                </NavLink>
-              </li>
-            </ul>
-            <li
-              onClick={() => {
-                handleDropdown("vendor");
-                setType("vendor");
-              }}
-            >
-              <span>
-                <FaUsersRectangle />
-                Vendors
-              </span>
-              <IoIosArrowForward
-                className="arrow"
-                style={{
-                  transform: `${
-                    show && type == "vendor" ? "rotate(90deg)" : ""
-                  }`,
-                }}
-              />
-            </li>
-            <ul
-              className="inner_sidelinks"
-              style={{
-                display: show && type == "vendor" ? "inline-block" : "none",
-              }}
-            >
-              <li>
-                <NavLink to="vendor/all" className="customeRoute">
-                  <span>All Vendors</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="vendor/create" className="customeRoute">
-                  <span>Add Vendors</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="vendor/trash" className="customeRoute">
-                  <span>Trash Vendors</span>
                 </NavLink>
               </li>
             </ul>

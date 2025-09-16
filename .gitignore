@@ -18,7 +18,7 @@ Thumbs.db
 .idea/
 *.swp
 
-# --- Frontend (React + Vite) ---
+# --- Admin (React + Vite) ---
 /admin/node_modules/
 /admin/dist/
 /admin/.vite
@@ -26,6 +26,15 @@ Thumbs.db
 /admin/.env
 /admin/.env.local
 /admin/.env.*.local
+
+# --- Super Admin (React + Vite) ---
+/super-admin/node_modules/
+/super-admin/dist/
+/super-admin/.vite
+/super-admin/.eslintcache
+/super-admin/.env
+/super-admin/.env.local
+/super-admin/.env.*.local
 
 # --- Backend (Node + Express) ---
 /api/node_modules/

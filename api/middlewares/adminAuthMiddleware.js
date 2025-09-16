@@ -13,20 +13,22 @@ export const adminAuthMiddleware = async (req, res, next) => {
     token = tokenFromCookie;
   }
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized: No token provided" });
+    return res
+      .status(401)
+      .json({ status: "error", message: "Unauthorized: No token provided" });
   }
 
   try {
     const decoded = verifyToken(token);
 
-    const websiteId = await Website.findOne({ admin: decoded._id }).select({
-      _id: 1,
-    });
+    const websiteId = await Website.findOne({ admin: decoded._id });
 
-    req.admin = { ...decoded, website: websiteId._id };
+    req.admin = { ...decoded, website: websiteId?._id || null };
     next();
   } catch (err) {
     console.log("JWT Error:", err.message);
-    return res.status(401).json({ error: "Unauthorized: Invalid token" });
+    return res
+      .status(401)
+      .json({ status: "error", message: "Unauthorized: Invalid token" });
   }
 };

@@ -19,6 +19,11 @@ const statusSchema = new mongoose.Schema(
       ref: "Admin",
       required: true,
     },
+    website: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Website",
+      required: true,
+    },
     deletedAt: {
       type: Date,
       default: null,

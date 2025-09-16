@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-
+import mongoosePaginate from "mongoose-paginate-v2";
 const adminSchema = new mongoose.Schema(
   {
     name: {
@@ -36,6 +36,7 @@ const adminSchema = new mongoose.Schema(
     // },
     status: {
       type: String,
+      enum: ["active", "inactive", "blocked"],
       default: "active",
     },
     deletedAt: {
@@ -45,7 +46,6 @@ const adminSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
 adminSchema.pre("save", async function (next) {
   const user = this;
   if (!user.isModified("password")) return next();
@@ -77,6 +77,7 @@ adminSchema.pre("findOne", function (next) {
   next();
 });
 
+adminSchema.plugin(mongoosePaginate);
 const Admin = mongoose.model("Admin", adminSchema);
 
 export default Admin;

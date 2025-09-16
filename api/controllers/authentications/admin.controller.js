@@ -132,8 +132,6 @@ export const adminCreate = async (req, res) => {
     const payload = req.body;
     const isExistAdmin = await Admin.findOne({
       email: payload.email,
-      deletedAt: null,
-      status: "active",
     });
 
     if (isExistAdmin) {
@@ -170,25 +168,6 @@ export const adminUpdate = async (req, res) => {
     return res
       .status(200)
       .json({ status: "success", message: "Admin updated successfully" });
-  } catch (error) {
-    return res.status(500).json({ status: "error", message: error.message });
-  }
-};
-
-export const adminDelete = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const response = await Admin.findByIdAndDelete(id);
-
-    if (!response) {
-      return res
-        .status(404)
-        .json({ status: "error", message: "Admin not found" });
-    }
-
-    return res
-      .status(200)
-      .json({ status: "success", message: "Admin deleted successfully" });
   } catch (error) {
     return res.status(500).json({ status: "error", message: error.message });
   }

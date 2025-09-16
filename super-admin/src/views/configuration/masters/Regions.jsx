@@ -1,33 +1,17 @@
 import TableLayoutComp from "../../../components/Tables/TableLayoutComp";
 
-function Units() {
+function Regions() {
   return (
     <div>
-      <div className="unitPage flex">
+      <div className="regionPage flex">
         <div className="itemRight">
-          <TableLayoutComp title={"Unit"}>
-            <div className="unitcard cp">
+          <TableLayoutComp title={"Create Region"}>
+            <div className="regionscard cp">
               <div>
                 <label htmlFor="name" className="label">
-                  Unit Name<span className="span">*</span>
+                  Region Name<span className="span">*</span>
                 </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="input"
-                  placeholder="Unit name"
-                />
-              </div>
-              <div>
-                <label htmlFor="symbol" className="label">
-                  Symbol (Ex: kg)<span className="span">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="symbol"
-                  className="input"
-                  placeholder="Symbol"
-                />
+                <textarea name="name" id="name" className="textarea"></textarea>
               </div>
               <div>
                 <label htmlFor="type" className="label">
@@ -50,6 +34,16 @@ function Units() {
                   placeholder="Other Type"
                 />
               </div>
+              <div>
+                <label htmlFor="parent" className="label">
+                  Parent<span className="span">*</span>
+                </label>
+                <select name="parent" id="parent" className="input">
+                  <option value="" selected disabled>
+                    Select...
+                  </option>
+                </select>
+              </div>
               <div className="cp">
                 <button className="submit">Submit</button>
               </div>
@@ -62,4 +56,4 @@ function Units() {
   );
 }
 
-export default Units;
+export default Regions;
