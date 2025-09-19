@@ -1,21 +1,24 @@
 import mongoose from "mongoose";
-import { generateOptions } from "../../../helpers/mongooseHelper.js";
-import Status from "../../../models/configuration/master/status.schema.js";
-import { adminsLogsHelper } from "../../../helpers/adminsLogsHelper.js";
-
-export const getStatus = async (req, res) => {
+import { generateOptions } from "../../helpers/mongooseHelper.js";
+import Notification from "../../models/ecommerce/notification.schema.js";
+import { adminsLogsHelper } from "../../helpers/adminsLogsHelper.js";
+export const getNotifications = async (req, res) => {
   try {
     const { _id, website } = req.admin;
     const query = {
-      admin: new mongoose.Types.ObjectId(_id),
-      website: new mongoose.Types.ObjectId(website),
+      admin: _id,
+      website,
       deletedAt: null,
     };
     const options = generateOptions(req);
 
-    const statusType = await Status.aggregate([
+    const NotificationsType = await Notification.aggregate([
       {
-        $match: query,
+        $match: {
+          admin: new mongoose.Types.ObjectId(_id),
+          website: new mongoose.Types.ObjectId(website),
+          deletedAt: null,
+        },
       },
       {
         $group: {
@@ -24,12 +27,12 @@ export const getStatus = async (req, res) => {
       },
     ]);
 
-    const response = await Status.paginate(query, options);
+    const response = await Notification.paginate(query, options);
     return res.status(200).json({
       status: "success",
-      message: "Statuses fetched successfully",
+      message: "Notifications fetched successfully",
       data: response,
-      type: statusType,
+      type: NotificationsType,
     });
   } catch (error) {
     return res.status(500).json({
@@ -40,24 +43,24 @@ export const getStatus = async (req, res) => {
   }
 };
 
-export const getStatusById = async (req, res) => {
+export const getNotificationsById = async (req, res) => {
   try {
     const { id } = req.params;
     const { _id, website } = req.admin;
     const query = { _id: id, admin: _id, website, deletedAt: null };
 
-    const getStatus = await Status.findOne(query);
-    if (!getStatus) {
+    const getNotifications = await Notification.findOne(query);
+    if (!getNotifications) {
       return res.status(404).json({
         status: "error",
-        message: "Status not found",
+        message: "Notifications not found",
       });
     }
 
     return res.status(200).json({
       ststus: "success",
-      message: "Statuses fetched successfully",
-      data: getStatus,
+      message: "Notifications fetched successfully",
+      data: getNotifications,
     });
   } catch (error) {
     return res.status(500).json({
@@ -68,29 +71,28 @@ export const getStatusById = async (req, res) => {
   }
 };
 
-export const getStatusByType = async (req, res) => {
+export const getNotificationsByType = async (req, res) => {
   try {
     const { type } = req.params;
     const { _id, website } = req.admin;
-
-    const statusType = await Status.find({
+    const NotificationsType = await Notification.find({
       type,
       admin: _id,
       website,
       deletedAt: null,
     });
 
-    if (!statusType || statusType.length === 0) {
+    if (!NotificationsType || NotificationsType.length === 0) {
       return res.status(404).json({
         status: "error",
-        message: "No status found for this type",
+        message: "No Notifications found for this type",
       });
     }
 
     return res.status(200).json({
       status: "success",
-      message: "Status fetched successfully by type",
-      data: statusType,
+      message: "Notifications fetched successfully by type",
+      data: NotificationsType,
     });
   } catch (error) {
     return res.status(500).json({
@@ -101,17 +103,17 @@ export const getStatusByType = async (req, res) => {
   }
 };
 
-export const createStatus = async (req, res) => {
+export const createNotifications = async (req, res) => {
   try {
-    const { name, color, type } = req.body;
+    const data = req.body;
     const { _id, website } = req.admin;
 
-    const response = new Status({ name, color, type, admin: _id, website });
+    const response = new Notification({ ...data, admin: _id, website });
     await response.save();
-    await adminsLogsHelper(req, "Status create successfully");
+    await adminsLogsHelper(req, "Notifications created successfully");
     return res.status(201).json({
       status: "success",
-      message: "Status created successfully",
+      message: "Notifications created successfully",
     });
   } catch (error) {
     return res.status(500).json({
@@ -122,25 +124,29 @@ export const createStatus = async (req, res) => {
   }
 };
 
-export const updateStatus = async (req, res) => {
+export const updateNotifications = async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
 
-    const updatedStatus = await Status.findByIdAndUpdate(id, data, {
-      new: true,
-    });
+    const updatedNotifications = await Notification.findByIdAndUpdate(
+      id,
+      data,
+      {
+        new: true,
+      }
+    );
 
-    if (!updatedStatus) {
+    if (!updatedNotifications) {
       return res.status(404).json({
         status: "error",
-        message: "Status not found",
+        message: "Notifications not found",
       });
     }
-    await adminsLogsHelper(req, "Status updated successfully");
+    await adminsLogsHelper(req, "Notifications updated successfully");
     return res.status(200).json({
       status: "success",
-      message: "Status updated successfully",
+      message: "Notifications updated successfully",
     });
   } catch (error) {
     return res.status(500).json({
@@ -151,23 +157,23 @@ export const updateStatus = async (req, res) => {
   }
 };
 
-export const deleteStatus = async (req, res) => {
+export const deleteNotifications = async (req, res) => {
   try {
     const { id } = req.params;
     const { _id, website } = req.admin;
     const query = { _id: id, admin: _id, website, deletedAt: null };
-    const deletedStatus = await Status.deleteOne(query);
+    const deletedNotifications = await Notification.deleteOne(query);
 
-    if (!deletedStatus) {
+    if (!deletedNotifications) {
       return res.status(404).json({
         status: "error",
-        message: "Status not found",
+        message: "Notifications not found",
       });
     }
-    await adminsLogsHelper(req, "Status deleted successfully");
+    await adminsLogsHelper(req, "Notifications deleted successfully");
     return res.status(200).json({
       status: "success",
-      message: "Status deleted successfully",
+      message: "Notifications deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({
@@ -178,7 +184,7 @@ export const deleteStatus = async (req, res) => {
   }
 };
 
-export const multiDelete = async (req, res) => {
+export const multiDeleteNotifications = async (req, res) => {
   try {
     const { _id, website } = req.admin;
     const ids = req.body;
@@ -188,20 +194,19 @@ export const multiDelete = async (req, res) => {
       deletedAt: null,
       _id: { $in: ids },
     };
-    const AllStatus = await Status.find(query);
+    const AllNotifications = await Notification.find(query);
 
-    if (!AllStatus.length > 0) {
+    if (!AllNotifications.length > 0) {
       return res.status(404).json({
         status: "error",
-        message: "Status not found",
+        message: "Notifications not found",
       });
     }
-
-    await Status.deleteMany(query);
-    await adminsLogsHelper(req, "All status  deleted successfully");
+    await Notification.deleteMany(query);
+    await adminsLogsHelper(req, "All Notifications deleted successfully");
     return res.status(200).json({
       status: "success",
-      message: "All status deleted successfully",
+      message: "All Notifications deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({

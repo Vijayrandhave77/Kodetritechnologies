@@ -28,7 +28,7 @@ function All() {
 
 
   const fetchData = async () => {
-    const response = await basicProvider.getMethod(`cms/faq?page=${page}&count=${count}`);
+    const response = await basicProvider.getMethod(`cms/testimonial?page=${page}&count=${count}`);
     setData(response.data.data);
     setPagination(response.data)
   }
@@ -62,7 +62,7 @@ function All() {
                   {multiDelete?.length} selecte to Delete
                 </div>
                 <DeleteSweetalert
-                  endpoint={"cms/faq"}
+                  endpoint={"cms/testimonial"}
                   type={"multi-trash"}
                   multiDelete={multiDelete}
                   refresh={fetchData}
@@ -88,6 +88,7 @@ function All() {
                             }}
                           />
                         </TableCell>
+                        <TableCell>Name</TableCell>
                         <TableCell>Title</TableCell>
                         <TableCell align="center">Slug</TableCell>
                         <TableCell align="center">Publish Date</TableCell>
@@ -111,6 +112,7 @@ function All() {
                               onChange={handleMultiDelete}
                             />
                           </TableCell>
+                          <TableCell align="center">{row.name}</TableCell>
                           <TableCell align="center">{row.title}</TableCell>
                           <TableCell align="center">{row.slug}</TableCell>
                           <TableCell align="center">{row.publish_date}</TableCell>
@@ -120,11 +122,11 @@ function All() {
                           </TableCell>
                           <TableCell align="center">
                             <div className="flex items-center gap-1 text-2xl">
-                              <NavLink to={`/cms/faq/${row._id}/edit`}>
+                              <NavLink to={`/cms/testimonials/${row._id}/edit`}>
                                 <MdCreate className="text-blue-500" />
                               </NavLink>
                               <DeleteSweetalert
-                                endpoint={"cms/faq"}
+                                endpoint={"cms/testimonial"}
                                 type={"trash"}
                                 deleteID={row?._id}
                                 refresh={fetchData}

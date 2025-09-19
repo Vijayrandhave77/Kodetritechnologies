@@ -1,3 +1,4 @@
+import { adminsLogsHelper } from "../../../helpers/adminsLogsHelper.js";
 import Payment from "../../../models/configuration/setting/payment.schema.js";
 
 export const getpayment = async (req, res) => {
@@ -49,7 +50,7 @@ export const createPayment = async (req, res) => {
         new: true,
       }
     );
-
+    await adminsLogsHelper(req, "Payment create successfully");
     return res.status(200).json({
       status: "success",
       message: "updated successfully",

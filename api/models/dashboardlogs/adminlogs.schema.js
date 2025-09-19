@@ -16,10 +16,11 @@ const adminLogsSchema = new mongoose.Schema(
     browser_version: {
       type: String,
     },
-    ip_address: {
+    ip_address: [String],
+    os: {
       type: String,
     },
-    os: {
+    platform: {
       type: String,
     },
     website: {

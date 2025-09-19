@@ -16,7 +16,7 @@ import {
   IoTicket,
   IoWalletSharp,
 } from "react-icons/io5";
-import { MdEmail, MdReviews, MdSupportAgent } from "react-icons/md";
+import { MdEmail, MdOutlineMessage, MdReviews, MdSupportAgent } from "react-icons/md";
 import { RiContactsBook3Fill } from "react-icons/ri";
 import { SiFiles } from "react-icons/si";
 import { TfiLayoutSlider } from "react-icons/tfi";
@@ -406,6 +406,47 @@ function AdminSidebar() {
                 <li>
                   <NavLink to="cms/contacts/trash">
                     <span>Trash Contacts</span>
+                  </NavLink>
+                </li>
+              </ul>
+              <li
+                onClick={() => {
+                  handleDropdown("testimonials");
+                  setType("testimonials");
+                  setCms(true);
+                }}
+              >
+                <span>
+                  <MdOutlineMessage />
+                  Testimonials
+                </span>
+                <IoIosArrowForward
+                  className="arrow"
+                  style={{
+                    transform: `${show && type == "testimonials" ? "rotate(90deg)" : ""
+                      }`,
+                  }}
+                />
+              </li>
+              <ul
+                className="inner_sidelinks"
+                style={{
+                  display: show && type == "testimonials" ? "inline-block" : "none",
+                }}
+              >
+                <li>
+                  <NavLink to="cms/testimonials/all">
+                    <span>All Testimonials</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="cms/testimonials/create">
+                    <span>Create Testimonials</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="cms/testimonials/trash">
+                    <span>Trash Testimonials</span>
                   </NavLink>
                 </li>
               </ul>

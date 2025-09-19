@@ -1,19 +1,19 @@
 import { adminsLogsHelper } from "../../helpers/adminsLogsHelper.js";
 import { generateOptions } from "../../helpers/mongooseHelper.js";
 import { slugGenerator } from "../../helpers/slugGenerator.js";
-import Blog from "../../models/cms/blog.schema.js";
+import Testimonial from "../../models/cms/testimonial.schema.js";
 
-export const getBlog = async (req, res) => {
+export const getTestimonial = async (req, res) => {
   try {
     const { _id, website } = req.admin;
     const query = { admin: _id, website, deletedAt: null };
     const options = generateOptions(req);
-    const blog = await Blog.paginate(query, options);
+    const Testimonials = await Testimonial.paginate(query, options);
 
     return res.status(200).json({
       status: "success",
-      message: "fetch Blog successfully",
-      data: blog,
+      message: "fetch testimonials successfully",
+      data: Testimonials,
     });
   } catch (error) {
     return res.status(500).json({
@@ -24,17 +24,17 @@ export const getBlog = async (req, res) => {
   }
 };
 
-export const getTrashBlog = async (req, res) => {
+export const getTrashTestimonial = async (req, res) => {
   try {
     const { _id, website } = req.admin;
     const query = { admin: _id, website, deletedAt: { $ne: null } };
     const options = generateOptions(req);
-    const Blogs = await Blog.paginate(query, options);
+    const Testimonials = await Testimonial.paginate(query, options);
 
     return res.status(200).json({
       status: "success",
-      message: "fetch Trash Blogs successfully",
-      data: Blogs,
+      message: "fetch Trash testimonial successfully",
+      data: Testimonials,
     });
   } catch (error) {
     return res.status(500).json({
@@ -45,18 +45,18 @@ export const getTrashBlog = async (req, res) => {
   }
 };
 
-export const getBlogById = async (req, res) => {
+export const getTestimonialById = async (req, res) => {
   try {
     const { _id, website } = req.admin;
     const { id } = req.params;
     const query = { _id: id, admin: _id, website, deletedAt: null };
 
-    const Blogs = await Blog.findOne(query);
+    const Testimonials = await Testimonial.findOne(query);
 
     return res.status(200).json({
       status: "success",
-      message: "fetch Blogs successfully",
-      data: Blogs,
+      message: "fetch testimonials successfully",
+      data: Testimonials,
     });
   } catch (error) {
     return res.status(500).json({
@@ -67,24 +67,24 @@ export const getBlogById = async (req, res) => {
   }
 };
 
-export const createBlog = async (req, res) => {
+export const createTestimonial = async (req, res) => {
   try {
     const { _id, website } = req.admin;
     const data = req.body;
-    const slug = await slugGenerator(data.title, Blog);
-
+    const slug = await slugGenerator(data.name, Testimonial);
     const payload = {
       ...data,
-      slug,
       admin: _id,
       website,
+      slug,
     };
-    await adminsLogsHelper(req, "Blog create successfully");
-    const blog = await Blog.create(payload);
+
+    const result = await Testimonial.create(payload);
+    await adminsLogsHelper(req, "Testimonial create successfully");
     return res.status(201).json({
       status: "success",
-      message: "Blog create successfully",
-      data: blog,
+      message: "Testimonial create successfully",
+      data: result,
     });
   } catch (error) {
     return res.status(500).json({
@@ -95,7 +95,7 @@ export const createBlog = async (req, res) => {
   }
 };
 
-export const updateBlog = async (req, res) => {
+export const updateTestimonial = async (req, res) => {
   try {
     const { _id, website } = req.admin;
     const { id } = req.params;
@@ -106,9 +106,9 @@ export const updateBlog = async (req, res) => {
       website,
     };
 
-    const response = await Blog.findOneAndUpdate(query, payload);
+    const response = await Testimonial.findOneAndUpdate(query, payload);
+    await adminsLogsHelper(req, "Testimonial update successfully");
     if (response) {
-      await adminsLogsHelper(req, "Blog update successfully");
       return res.status(200).json({
         status: "success",
         message: "update successfully",
@@ -123,23 +123,23 @@ export const updateBlog = async (req, res) => {
   }
 };
 
-export const deleteBlog = async (req, res) => {
+export const deleteTestimonial = async (req, res) => {
   try {
     const { id } = req.params;
     const { _id, website } = req.admin;
     const query = { _id: id, admin: _id, website, deletedAt: { $ne: null } };
-    const deleteBlog = await Blog.deleteOne(query);
+    const deleteTestimonial = await Testimonial.deleteOne(query);
 
-    if (!deleteBlog) {
+    if (!deleteTestimonial) {
       return res.status(404).json({
         status: "error",
-        message: "Blog not found",
+        message: "Testimonial not found",
       });
     }
-    await adminsLogsHelper(req, "Blog deleted successfully");
+    await adminsLogsHelper(req, "Testimonial delete successfully");
     return res.status(200).json({
       status: "success",
-      message: "Blog deleted successfully",
+      message: "Testimonial deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({
@@ -150,31 +150,31 @@ export const deleteBlog = async (req, res) => {
   }
 };
 
-export const trashBlog = async (req, res) => {
+export const trashTestimonial = async (req, res) => {
   try {
     const { id } = req.params;
     const { _id, website } = req.admin;
     const query = { _id: id, admin: _id, website, deletedAt: null };
-    const deleteBlog = await Blog.findOne(query);
+    const deleteTestimonial = await Testimonial.findOne(query);
 
-    if (!deleteBlog) {
+    if (!deleteTestimonial) {
       return res.status(404).json({
         status: "error",
-        message: "Blog not found",
+        message: "Testimonial not found",
       });
     }
 
-    await Blog.findByIdAndUpdate(
+    await Testimonial.findByIdAndUpdate(
       { _id: id },
       { deletedAt: new Date() },
       {
         new: true,
       }
     );
-    await adminsLogsHelper(req, "Blog trash successfully");
+    await adminsLogsHelper(req, "Testimonial trash successfully");
     return res.status(200).json({
       status: "success",
-      message: "Blog trash successfully",
+      message: "Testimonial trash successfully",
     });
   } catch (error) {
     return res.status(500).json({
@@ -185,7 +185,7 @@ export const trashBlog = async (req, res) => {
   }
 };
 
-export const multiDeleteBlog = async (req, res) => {
+export const multiDeleteTestimonial = async (req, res) => {
   try {
     const { _id, website } = req.admin;
     const ids = req.body;
@@ -195,20 +195,20 @@ export const multiDeleteBlog = async (req, res) => {
       deletedAt: { $ne: null },
       _id: { $in: ids },
     };
-    const AllBlog = await Blog.find(query);
+    const AllTestimonial = await Testimonial.find(query);
 
-    if (!AllBlog.length > 0) {
+    if (!AllTestimonial.length > 0) {
       return res.status(404).json({
         status: "error",
-        message: "Blog not found",
+        message: "Testimonial not found",
       });
     }
 
-    await Blog.deleteMany(query);
-    await adminsLogsHelper(req, "All Blog deleted successfully");
+    await Testimonial.deleteMany(query);
+    await adminsLogsHelper(req, "All Testimonial delete successfully");
     return res.status(200).json({
       status: "success",
-      message: "All Blog deleted successfully",
+      message: "All Testimonial deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({
@@ -219,7 +219,7 @@ export const multiDeleteBlog = async (req, res) => {
   }
 };
 
-export const multiTrashBlog = async (req, res) => {
+export const multiTrashTestimonial = async (req, res) => {
   try {
     const { _id, website } = req.admin;
     const ids = req.body;
@@ -229,22 +229,22 @@ export const multiTrashBlog = async (req, res) => {
       deletedAt: null,
       _id: { $in: ids },
     };
-    const AllBlog = await Blog.find(query);
+    const AllTestimonial = await Testimonial.find(query);
 
-    if (!AllBlog.length > 0) {
+    if (!AllTestimonial.length > 0) {
       return res.status(404).json({
         status: "error",
-        message: "Blog not found",
+        message: "Testimonial not found",
       });
     }
 
-    await Blog.updateMany(query, {
+    await Testimonial.updateMany(query, {
       $set: { deletedAt: new Date(), updatedAt: new Date() },
     });
-    await adminsLogsHelper(req, "All Blog trashed successfully");
+    await adminsLogsHelper(req, "All Testimonial trashed successfully");
     return res.status(200).json({
       status: "success",
-      message: "All Blog trashed successfully",
+      message: "All Testimonial trashed successfully",
     });
   } catch (error) {
     return res.status(500).json({
@@ -255,24 +255,24 @@ export const multiTrashBlog = async (req, res) => {
   }
 };
 
-export const restoreTrashBlog = async (req, res) => {
+export const restoreTrashTestimonial = async (req, res) => {
   try {
     const { id } = req.params;
     const { _id, website } = req.admin;
     const query = { _id: id, admin: _id, website, deletedAt: { $ne: null } };
-    const Blogs = await Blog.findOne(query);
-    if (!Blogs) {
+    const testimonial = await Testimonial.findOne(query);
+    if (!testimonial) {
       return res.status(404).json({
         status: "error",
-        message: "Blog not found",
+        message: "Testimonial not found",
       });
     }
 
-    await Blog.updateOne(query, { $set: { deletedAt: null } });
-    await adminsLogsHelper(req, "Blog restore successfully");
+    await Testimonial.updateOne(query, { $set: { deletedAt: null } });
+    await adminsLogsHelper(req, "Testimonial restore successfully");
     return res.status(200).json({
       status: "success",
-      message: "Blog restore successfully",
+      message: "Testimonial restore successfully",
     });
   } catch (error) {
     return res.status(500).json({

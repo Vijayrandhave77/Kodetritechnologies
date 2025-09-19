@@ -1,3 +1,4 @@
+import { adminsLogsHelper } from "../../../helpers/adminsLogsHelper.js";
 import Store from "../../../models/configuration/setting/store.schema.js";
 
 export const getStore = async (req, res) => {
@@ -47,7 +48,7 @@ export const createStore = async (req, res) => {
         new: true,
       }
     );
-
+    await adminsLogsHelper(req, "Store create successfully");
     return res.status(200).json({
       status: "success",
       message: "Updated successfully",

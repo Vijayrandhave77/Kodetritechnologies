@@ -1,5 +1,6 @@
 import expres from "express";
 import "dotenv/config";
+import useragent from "express-useragent";
 import "./DATABASE.js";
 const app = expres();
 const PORT = process.env.PORT || 5000;
@@ -12,6 +13,8 @@ import CmsRouter from "./routers/cms/cms.router.js";
 import EcommerceRouter from "./routers/ecommerce/ecommerce.router.js";
 import DashboardlogsRouter from "./routers/dashbordlogs/dashboardlogs.router.js";
 
+app.use(useragent.express());
+app.set("trust proxy", true);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

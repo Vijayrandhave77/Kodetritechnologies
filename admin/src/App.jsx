@@ -8,6 +8,7 @@ import ProductTrash from "./views/ecommerce/products/Trash";
 import Orders from "./views/ecommerce/orders/All";
 import OrdersDetails from "./views/ecommerce/orders/Details";
 import OrdersTrash from "./views/ecommerce/orders/Trash";
+import Notifications from "./views/ecommerce/notification/Notifications";
 import Coupans from "./views/ecommerce/coupan/All";
 import CoupansCreate from "./views/ecommerce/coupan/Create";
 import Page from "./views/cms/pages/All";
@@ -19,6 +20,9 @@ import BlogTrash from "./views/cms/blogs/Trash";
 import FaqsPage from "./views/cms/faqs/All";
 import FaqsCreate from "./views/cms/faqs/Create";
 import FaqsTrash from "./views/cms/faqs/Trash";
+import TestimonialsPage from "./views/cms/testimonials/All";
+import TestimonialsCreate from "./views/cms/testimonials/Create";
+import TestimonialsTrash from "./views/cms/testimonials/Trash";
 import PaymentSetting from "./views/configuration/settings/PaymentSetting";
 import WebsiteSetting from "./views/configuration/settings/WebsiteSetting";
 import StoreSetting from "./views/configuration/settings/StoreSetting";
@@ -27,7 +31,6 @@ import Customer from "./views/users/customers/All";
 import CustomerCreate from "./views/users/customers/Create";
 import CustomerTrash from "./views/users/customers/Trash";
 import AdminLogsPage from "./views/dashboardlogs/adminlogs/All";
-import AdminLogsDetails from "./views/dashboardlogs/adminlogs/Details";
 import MailLogsPage from "./views/dashboardlogs/mailogs/All";
 import MailLogsDetails from "./views/dashboardlogs/mailogs/Details";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -57,15 +60,28 @@ function App() {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/ecommerce/product/all" element={<Products />} />
           <Route path="/ecommerce/product/create" element={<ProductCreate />} />
-          <Route path="/ecommerce/product/edit/:id" element={<ProductCreate />} />
+          <Route
+            path="/ecommerce/product/edit/:id"
+            element={<ProductCreate />}
+          />
           <Route path="/ecommerce/product/trash" element={<ProductTrash />} />
           <Route path="/ecommerce/order/all" element={<Orders />} />
-          <Route path="/ecommerce/order/details/:id" element={<OrdersDetails />} />
+          <Route
+            path="/ecommerce/order/details/:id"
+            element={<OrdersDetails />}
+          />
           <Route path="/ecommerce/order/trash" element={<OrdersTrash />} />
           <Route path="/ecommerce/coupan/all" element={<Coupans />} />
           <Route path="/ecommerce/coupan/create" element={<CoupansCreate />} />
-          <Route path="/ecommerce/coupan/:id/edit" element={<CoupansCreate />} />
-          <Route path="/ecommerce/notifications" element={<ComingSoonPage />} />
+          <Route
+            path="/ecommerce/coupan/:id/edit"
+            element={<CoupansCreate />}
+          />
+          <Route path="/ecommerce/notifications" element={<Notifications />} />
+          <Route
+            path="/ecommerce/notifications/:id/edit"
+            element={<Notifications />}
+          />
           <Route path="/ecommerce/reviews" element={<ComingSoonPage />} />
           <Route path="/cms/page/all" element={<Page />} />
           <Route path="/cms/page/create" element={<PageCreate />} />
@@ -79,6 +95,19 @@ function App() {
           <Route path="/cms/faq/create" element={<FaqsCreate />} />
           <Route path="/cms/faq/:id/edit" element={<FaqsCreate />} />
           <Route path="/cms/faq/trash" element={<FaqsTrash />} />
+          <Route path="/cms/testimonials/all" element={<TestimonialsPage />} />
+          <Route
+            path="/cms/testimonials/create"
+            element={<TestimonialsCreate />}
+          />
+          <Route
+            path="/cms/testimonials/:id/edit"
+            element={<TestimonialsCreate />}
+          />
+          <Route
+            path="/cms/testimonials/trash"
+            element={<TestimonialsTrash />}
+          />
           <Route path="/setting/payment-gatway" element={<PaymentSetting />} />
           <Route path="/setting/website" element={<WebsiteSetting />} />
           <Route path="/setting/store-setting" element={<StoreSetting />} />
@@ -98,10 +127,6 @@ function App() {
           <Route path="/customer/:id/edit" element={<CustomerCreate />} />
           <Route path="/customer/trash" element={<CustomerTrash />} />
           <Route path="/log/admin-logs" element={<AdminLogsPage />} />
-          <Route
-            path="/log/admin-logs/details/:id"
-            element={<AdminLogsDetails />}
-          />
           <Route path="/log/mail-logs" element={<MailLogsPage />} />
           <Route
             path="/log/mail-logs/details/:id"

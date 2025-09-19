@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { generateOptions } from "../../../helpers/mongooseHelper.js";
 import Tages from "../../../models/configuration/master/tages.schema.js";
+import { adminsLogsHelper } from "../../../helpers/adminsLogsHelper.js";
 export const getTages = async (req, res) => {
   try {
     const { _id, website } = req.admin;
@@ -109,6 +110,7 @@ export const createTages = async (req, res) => {
 
     const response = new Tages({ name, type, admin: _id, website });
     await response.save();
+    await adminsLogsHelper(req, "Tages created successfully");
     return res.status(201).json({
       status: "success",
       message: "Tages created successfully",
@@ -137,7 +139,7 @@ export const updateTages = async (req, res) => {
         message: "Tages not found",
       });
     }
-
+    await adminsLogsHelper(req, "Tages updated successfully");
     return res.status(200).json({
       status: "success",
       message: "Tages updated successfully",
@@ -164,7 +166,7 @@ export const deleteTages = async (req, res) => {
         message: "Tages not found",
       });
     }
-
+    await adminsLogsHelper(req, "Tages deleted successfully");
     return res.status(200).json({
       status: "success",
       message: "Tages deleted successfully",
@@ -197,7 +199,7 @@ export const multiDeleteTages = async (req, res) => {
       });
     }
     await Tages.deleteMany(query);
-
+    await adminsLogsHelper(req, "All tages deleted successfully");
     return res.status(200).json({
       status: "success",
       message: "All Tages deleted successfully",

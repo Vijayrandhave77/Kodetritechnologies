@@ -52,6 +52,13 @@ import {
   getCategoryById,
   updateCategory,
 } from "../../controllers/configuration/master/categories.controller.js";
+import {
+  createRegions,
+  deleteRegions,
+  getRegionsById,
+  regionsTypes,
+  updateRegions,
+} from "../../controllers/configuration/master/regions.controller.js";
 
 // Setting Routes
 
@@ -80,6 +87,13 @@ router.get("/categories/types", adminAuthMiddleware, categoriesTypes);
 router.get("/categories/byId/:id", adminAuthMiddleware, getCategoryById);
 router.patch("/categories/update/:id", adminAuthMiddleware, updateCategory);
 router.delete("/categories/delete/:id", adminAuthMiddleware, deleteCategory);
+
+// Regions
+router.post("/regions/create", adminAuthMiddleware, createRegions);
+router.get("/regions/types", adminAuthMiddleware, regionsTypes);
+router.get("/regions/byId/:id", adminAuthMiddleware, getRegionsById);
+router.patch("/regions/update/:id", adminAuthMiddleware, updateRegions);
+router.delete("/regions/delete/:id", adminAuthMiddleware, deleteRegions);
 
 // Brands
 

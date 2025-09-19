@@ -1,3 +1,4 @@
+import { adminsLogsHelper } from "../../helpers/adminsLogsHelper.js";
 import { generateOptions } from "../../helpers/mongooseHelper.js";
 import { slugGenerator } from "../../helpers/slugGenerator.js";
 import Coupan from "../../models/ecommerce/coupan.schema.js";
@@ -80,6 +81,7 @@ export const createCoupan = async (req, res) => {
     };
 
     const coupan = await Coupan.create(payload);
+    await adminsLogsHelper(req, "Coupan create successfully");
     return res.status(201).json({
       status: "success",
       message: "Coupan create successfully",
@@ -106,6 +108,7 @@ export const updateCoupan = async (req, res) => {
     };
 
     const response = await Coupan.findOneAndUpdate(query, payload);
+    await adminsLogsHelper(req, "Coupan updated successfully");
     if (response) {
       return res.status(200).json({
         status: "success",
@@ -134,7 +137,7 @@ export const deleteCoupan = async (req, res) => {
         message: "Coupan not found",
       });
     }
-
+    await adminsLogsHelper(req, "Coupan deleted successfully");
     return res.status(200).json({
       status: "success",
       message: "Coupan deleted successfully",
@@ -168,7 +171,7 @@ export const multiDeleteCoupan = async (req, res) => {
     }
 
     await Coupan.deleteMany(query);
-
+    await adminsLogsHelper(req, "All Coupan deleted successfully");
     return res.status(200).json({
       status: "success",
       message: "All Coupan deleted successfully",

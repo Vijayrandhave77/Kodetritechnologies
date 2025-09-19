@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import BasicProvider from "../authentications/BasicProvider";
 import { useNavigate } from "react-router-dom";
 
-export default function JsTree({ data, fetchData }) {
+export default function JsTree({ data, fetchData,endpoint,navigates }) {
   const treeRef = useRef(null);
   const basicProvider = BasicProvider();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export default function JsTree({ data, fetchData }) {
 
     $(treeRef.current).on("select_node.jstree", (e, data) => {
       const categoryId = data.node.id;
-      navigate(`/master/categories/${categoryId}/edit`);
+      navigate(`${navigates}/${categoryId}/edit`);
     });
 
 
@@ -43,7 +43,7 @@ export default function JsTree({ data, fetchData }) {
 
       try {
         const response = await basicProvider.deleteMethod(
-          `configuration/categories/delete/${id}`
+          `${endpoint}/delete/${id}`
         );
         if (response.status === "success") {
           toast.success(response.message);

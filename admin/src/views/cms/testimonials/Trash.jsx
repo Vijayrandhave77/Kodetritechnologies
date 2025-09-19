@@ -13,11 +13,13 @@ import Checkbox from "@mui/material/Checkbox";
 import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
 import BasicProvider from "../../../authentications/BasicProvider";
-import { NavLink, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import { MdCreate } from "react-icons/md";
+import { FaRectangleList } from "react-icons/fa6";
+import { IoCreate } from "react-icons/io5";
+import { FaTrashAlt } from "react-icons/fa";
 
-function All() {
+function Trash() {
   const basicProvider = BasicProvider()
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
@@ -25,10 +27,26 @@ function All() {
   const [data, setData] = useState([])
   const [pagination, setPagination] = useState({});
   const [multiDelete, setMultiDelete] = useState([]);
-
+  const HeaderNavigation = [
+    {
+      name: "All FAQs",
+      link: "/cms/faq/all",
+      icon: <FaRectangleList />
+    },
+    {
+      name: "Create FAQs",
+      link: "/cms/faq/create",
+      icon: <IoCreate />
+    },
+    {
+      name: "Trash FAQs",
+      link: "/cms/faq/trash",
+      icon: <FaTrashAlt />
+    },
+  ]
 
   const fetchData = async () => {
-    const response = await basicProvider.getMethod(`cms/faq?page=${page}&count=${count}`);
+    const response = await basicProvider.getMethod(`cms/testimonial/trash?page=${page}&count=${count}`);
     setData(response.data.data);
     setPagination(response.data)
   }
@@ -41,6 +59,8 @@ function All() {
       setMultiDelete((pre) => pre.filter((id) => id !== value));
     }
   };
+
+
 
   useEffect(() => {
     fetchData()
@@ -62,11 +82,11 @@ function All() {
                   {multiDelete?.length} selecte to Delete
                 </div>
                 <DeleteSweetalert
-                  endpoint={"cms/faq"}
-                  type={"multi-trash"}
+                  title={"multiple Delete"}
+                  endpoint={"cms/testimonial"}
+                  type={"multi-delete"}
                   multiDelete={multiDelete}
                   refresh={fetchData}
-                  title={"multi trash"}
                 />
               </div>
             )}
@@ -88,6 +108,7 @@ function All() {
                             }}
                           />
                         </TableCell>
+                        <TableCell>Name</TableCell>
                         <TableCell>Title</TableCell>
                         <TableCell align="center">Slug</TableCell>
                         <TableCell align="center">Publish Date</TableCell>
@@ -111,6 +132,7 @@ function All() {
                               onChange={handleMultiDelete}
                             />
                           </TableCell>
+                          <TableCell align="center">{row.name}</TableCell>
                           <TableCell align="center">{row.title}</TableCell>
                           <TableCell align="center">{row.slug}</TableCell>
                           <TableCell align="center">{row.publish_date}</TableCell>
@@ -120,15 +142,19 @@ function All() {
                           </TableCell>
                           <TableCell align="center">
                             <div className="flex items-center gap-1 text-2xl">
-                              <NavLink to={`/cms/faq/${row._id}/edit`}>
-                                <MdCreate className="text-blue-500" />
-                              </NavLink>
                               <DeleteSweetalert
-                                endpoint={"cms/faq"}
-                                type={"trash"}
+                                endpoint={"cms/testimonial"}
+                                type={"restore"}
                                 deleteID={row?._id}
                                 refresh={fetchData}
-                                title={"Trash"}
+                                restore={true}
+                                title={"Restore"}
+                              />
+                              <DeleteSweetalert
+                                endpoint={"cms/testimonial"}
+                                type={"delete"}
+                                deleteID={row?._id}
+                                refresh={fetchData}
                               />
                             </div>
                           </TableCell>
@@ -160,4 +186,4 @@ function All() {
   )
 }
 
-export default All
+export default Trash

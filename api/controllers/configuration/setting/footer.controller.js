@@ -1,3 +1,4 @@
+import { adminsLogsHelper } from "../../../helpers/adminsLogsHelper.js";
 import Footer from "../../../models/configuration/setting/footer.schema.js";
 
 export const getFooter = async (req, res) => {
@@ -47,7 +48,7 @@ export const createFooter = async (req, res) => {
         new: true,
       }
     );
-
+    await adminsLogsHelper(req, "Footer create successfully");
     return res.status(200).json({
       status: "success",
       message: "Updated successfully",

@@ -26,6 +26,18 @@ import {
   multiDeleteBlog,
   restoreTrashBlog,
 } from "../../controllers/cms/blog.controller.js";
+import {
+  createTestimonial,
+  deleteTestimonial,
+  getTestimonial,
+  getTestimonialById,
+  getTrashTestimonial,
+  multiDeleteTestimonial,
+  multiTrashTestimonial,
+  restoreTrashTestimonial,
+  trashTestimonial,
+  updateTestimonial,
+} from "../../controllers/cms/testimonial.controller.js";
 
 // Blog routes
 router.get("/blog", adminAuthMiddleware, getBlog);
@@ -38,6 +50,34 @@ router.delete("/blog/trash/:id", adminAuthMiddleware, trashBlog);
 router.post("/blog/multi-trash", adminAuthMiddleware, multiTrashBlog);
 router.post("/blog/multi-delete", adminAuthMiddleware, multiDeleteBlog);
 router.delete("/blog/restore/:id", adminAuthMiddleware, restoreTrashBlog);
+
+// Testimonial routes
+router.get("/testimonial", adminAuthMiddleware, getTestimonial);
+router.get("/testimonial/trash", adminAuthMiddleware, getTrashTestimonial);
+router.get("/testimonial/by/:id", adminAuthMiddleware, getTestimonialById);
+router.post("/testimonial/create", adminAuthMiddleware, createTestimonial);
+router.patch("/testimonial/update/:id", adminAuthMiddleware, updateTestimonial);
+router.delete(
+  "/testimonial/delete/:id",
+  adminAuthMiddleware,
+  deleteTestimonial
+);
+router.delete("/testimonial/trash/:id", adminAuthMiddleware, trashTestimonial);
+router.post(
+  "/testimonial/multi-trash",
+  adminAuthMiddleware,
+  multiTrashTestimonial
+);
+router.post(
+  "/testimonial/multi-delete",
+  adminAuthMiddleware,
+  multiDeleteTestimonial
+);
+router.delete(
+  "/testimonial/restore/:id",
+  adminAuthMiddleware,
+  restoreTrashTestimonial
+);
 
 // FAQs routes
 router.get("/faq", adminAuthMiddleware, getFaq);

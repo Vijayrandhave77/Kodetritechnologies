@@ -1,3 +1,4 @@
+import { adminsLogsHelper } from "../../helpers/adminsLogsHelper.js";
 import { generateOptions } from "../../helpers/mongooseHelper.js";
 import { slugGenerator } from "../../helpers/slugGenerator.js";
 import Faq from "../../models/cms/faq.schema.js";
@@ -79,7 +80,7 @@ export const createFaq = async (req, res) => {
     };
 
     const result = await Faq.create(payload);
-
+    await adminsLogsHelper(req, "Faq create successfully");
     return res.status(201).json({
       status: "success",
       message: "Faq create successfully",
@@ -106,6 +107,7 @@ export const updateFaq = async (req, res) => {
     };
 
     const response = await Faq.findOneAndUpdate(query, payload);
+    await adminsLogsHelper(req, "Faq update successfully");
     if (response) {
       return res.status(200).json({
         status: "success",
@@ -134,7 +136,7 @@ export const deleteFaq = async (req, res) => {
         message: "Faq not found",
       });
     }
-
+    await adminsLogsHelper(req, "Faq delete successfully");
     return res.status(200).json({
       status: "success",
       message: "Faq deleted successfully",
@@ -169,7 +171,7 @@ export const trashFaq = async (req, res) => {
         new: true,
       }
     );
-
+    await adminsLogsHelper(req, "Faq trash successfully");
     return res.status(200).json({
       status: "success",
       message: "Faq trash successfully",
@@ -203,7 +205,7 @@ export const multiDelete = async (req, res) => {
     }
 
     await Faq.deleteMany(query);
-
+    await adminsLogsHelper(req, "All Faq delete successfully");
     return res.status(200).json({
       status: "success",
       message: "All faq deleted successfully",
@@ -239,7 +241,7 @@ export const multiTrash = async (req, res) => {
     await Faq.updateMany(query, {
       $set: { deletedAt: new Date(), updatedAt: new Date() },
     });
-
+    await adminsLogsHelper(req, "All Faq trashed successfully");
     return res.status(200).json({
       status: "success",
       message: "All faq trashed successfully",
@@ -267,6 +269,7 @@ export const restoreTrash = async (req, res) => {
     }
 
     await Faq.updateOne(query, { $set: { deletedAt: null } });
+    await adminsLogsHelper(req, "Faq restore successfully");
     return res.status(200).json({
       status: "success",
       message: "Faq restore successfully",

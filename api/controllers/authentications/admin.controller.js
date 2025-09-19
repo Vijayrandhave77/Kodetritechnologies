@@ -1,3 +1,4 @@
+import { adminsLogsHelper } from "../../helpers/adminsLogsHelper.js";
 import { generateHashPassword } from "../../helpers/hashPassword.js";
 import { generateToken } from "../../helpers/JWT.js";
 import Admin from "../../models/authentications/admin.schema.js";
@@ -93,7 +94,7 @@ export const adminLogin = async (req, res) => {
       sameSite: "None",
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
-
+    await adminsLogsHelper(req, "Admin logged in successfully");
     return res.status(200).json({
       status: "success",
       message: "Admin logged in successfully",

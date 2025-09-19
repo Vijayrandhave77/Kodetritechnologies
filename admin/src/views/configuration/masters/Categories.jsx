@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // ✅ useParams
+import { useNavigate, useParams } from "react-router-dom";
 import FileUplodsModule from "../../../components/modules/FileUplodsModule";
 import TableLayoutComp from "../../../components/Tables/TableLayoutComp";
 import NoRecords from "../../../components/NoRecords";
@@ -18,25 +18,27 @@ function Categories() {
   const [initialValues, setInitialValues] = useState({
     name: [],
     type: "",
-    parent: ""
+    parent: "",
   });
 
   const fetchData = async () => {
-    const response = await basicProvider.getMethod("configuration/categories/types");
+    const response = await basicProvider.getMethod(
+      "configuration/categories/types"
+    );
     setCategories(response.data);
   };
 
-
-
   const fetchCategoryById = async () => {
     if (!id) return;
-    const response = await basicProvider.getMethod(`configuration/categories/byId/${id}`);
+    const response = await basicProvider.getMethod(
+      `configuration/categories/byId/${id}`
+    );
     if (response.status === "success") {
       const data = response.data;
       setInitialValues({
         name: [data.name],
         type: data.type,
-        parent: data.parent?._id || ""
+        parent: data.parent?._id || "",
       });
     } else {
       toast.error(response.message);
@@ -63,9 +65,15 @@ function Categories() {
     let response = "";
     if (data) {
       if (id) {
-        response = await basicProvider.patchMethod(`configuration/categories/update/${id}`, data);
+        response = await basicProvider.patchMethod(
+          `configuration/categories/update/${id}`,
+          data
+        );
       } else {
-        response = await basicProvider.postMethod("configuration/categories/create", data);
+        response = await basicProvider.postMethod(
+          "configuration/categories/create",
+          data
+        );
       }
     }
 
@@ -75,8 +83,8 @@ function Categories() {
       setInitialValues({
         name: [],
         type: "",
-        parent: ""
-      })
+        parent: "",
+      });
       navigate("/master/categories");
     } else {
       toast.error(response.message);
@@ -120,10 +128,9 @@ function Categories() {
                   <option value="" disabled>
                     Select Type
                   </option>
-                  {
-                    categories?.map((type) => (
-                      <option value={type._id}>{type._id}</option>
-                    ))}
+                  {categories?.map((type) => (
+                    <option value={type._id}>{type._id}</option>
+                  ))}
                   <option value="other">Other</option>
                 </select>
               </div>
@@ -160,7 +167,7 @@ function Categories() {
                   <option value="" disabled>
                     Select...
                   </option>
-                  {categories.flatMap((group) =>
+                  {categories?.flatMap((group) =>
                     group.categories.map((cat) => (
                       <option key={cat._id} value={cat._id}>
                         {cat.name}
@@ -186,8 +193,8 @@ function Categories() {
                     setInitialValues({
                       name: [],
                       type: "",
-                      parent: ""
-                    })
+                      parent: "",
+                    });
                     navigate("/master/categories");
                   }}
                 >
@@ -202,9 +209,14 @@ function Categories() {
             <NoRecords />
           ) : (
             <div className="categoreData cmt">
-              {categories.map((group) => (
+              {categories?.map((group) => (
                 <TableLayoutComp key={group._id} title={group._id}>
-                  <JsTree data={group.categories} fetchData={fetchData} />
+                  <JsTree
+                    data={group.categories}
+                    fetchData={fetchData}
+                    endpoint={"configuration/categories"}
+                    navigates={"/master/categories"}
+                  />
                 </TableLayoutComp>
               ))}
             </div>

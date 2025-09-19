@@ -1,3 +1,4 @@
+import { adminsLogsHelper } from "../../../helpers/adminsLogsHelper.js";
 import Website from "../../../models/configuration/setting/website.schema.js";
 
 export const getWebsite = async (req, res) => {
@@ -42,7 +43,7 @@ export const createWebsite = async (req, res) => {
 
     const response = new Website(payload);
     await response.save();
-
+    await adminsLogsHelper(req, "website register successfully");
     return res.status(201).json({
       status: "success",
       message: "Website registered successfully",
@@ -77,6 +78,7 @@ export const updateWebsite = async (req, res) => {
       { _id: websiteId, admin: _id },
       { $set: { ...data } }
     );
+    await adminsLogsHelper(req, "website updated successfully");
     return res.status(200).json({
       status: "success",
       message: "Website information updated successfully",

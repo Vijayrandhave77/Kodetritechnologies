@@ -1,8 +1,16 @@
 import express from "express";
 const router = express.Router();
 import { adminAuthMiddleware } from "../../middlewares/adminAuthMiddleware.js";
-import { adminLogsCreate } from "../../controllers/dashboardlogs/adminlogs.controller.js";
+import {
+  deleteAllAdminLogs,
+  getAdminLogs,
+} from "../../controllers/dashboardlogs/adminlogs.controller.js";
 
-router.post("/admin/log/create", adminAuthMiddleware, adminLogsCreate);
+router.get("/admin/logs", adminAuthMiddleware, getAdminLogs);
+router.post(
+  "/admin/logs/multi-delete",
+  adminAuthMiddleware,
+  deleteAllAdminLogs
+);
 
 export default router;

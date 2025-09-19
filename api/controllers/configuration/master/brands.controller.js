@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { generateOptions } from "../../../helpers/mongooseHelper.js";
 import Brands from "../../../models/configuration/master/brands.schema.js";
+import { adminsLogsHelper } from "../../../helpers/adminsLogsHelper.js";
 export const getBrands = async (req, res) => {
   try {
     const { _id, website } = req.admin;
@@ -109,6 +110,7 @@ export const createBrands = async (req, res) => {
 
     const response = new Brands({ name, type, admin: _id, website });
     await response.save();
+    await adminsLogsHelper(req, "Brands create successfully");
     return res.status(201).json({
       status: "success",
       message: "Brands created successfully",
@@ -137,7 +139,7 @@ export const updateBrands = async (req, res) => {
         message: "Brands not found",
       });
     }
-
+    await adminsLogsHelper(req, "Brands updated successfully");
     return res.status(200).json({
       status: "success",
       message: "Brands updated successfully",
@@ -164,7 +166,7 @@ export const deleteBrands = async (req, res) => {
         message: "Brands not found",
       });
     }
-
+    await adminsLogsHelper(req, "Brands deleted successfully");
     return res.status(200).json({
       status: "success",
       message: "Brands deleted successfully",
@@ -197,7 +199,7 @@ export const multiDeleteBrands = async (req, res) => {
       });
     }
     await Brands.deleteMany(query);
-
+    await adminsLogsHelper(req, "All brands deleted successfully");
     return res.status(200).json({
       status: "success",
       message: "All Brands deleted successfully",
