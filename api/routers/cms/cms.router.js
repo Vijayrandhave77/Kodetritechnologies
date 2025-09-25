@@ -38,6 +38,16 @@ import {
   trashTestimonial,
   updateTestimonial,
 } from "../../controllers/cms/testimonial.controller.js";
+import {
+  deleteContactAdmin,
+  getContactAdmin,
+  getContactByIdAdmin,
+  getTrashContactAdmin,
+  multiDeleteContactAdmin,
+  multiTrashContactAdmin,
+  restoreTrashContactAdmin,
+  trashContactAdmin,
+} from "../../controllers/cms/contact.controller.js";
 
 // Blog routes
 router.get("/blog", adminAuthMiddleware, getBlog);
@@ -90,5 +100,27 @@ router.delete("/faq/trash/:id", adminAuthMiddleware, trashFaq);
 router.post("/faq/multi-trash", adminAuthMiddleware, multiTrash);
 router.post("/faq/multi-delete", adminAuthMiddleware, multiDelete);
 router.delete("/faq/restore/:id", adminAuthMiddleware, restoreTrash);
+
+// Contacts
+router.get("/contact", adminAuthMiddleware, getContactAdmin);
+router.get("/contact/trash", adminAuthMiddleware, getTrashContactAdmin);
+router.get("/contact/by/:id", adminAuthMiddleware, getContactByIdAdmin);
+router.delete("/contact/delete/:id", adminAuthMiddleware, deleteContactAdmin);
+router.delete("/contact/trash/:id", adminAuthMiddleware, trashContactAdmin);
+router.post(
+  "/contact/multi-trash",
+  adminAuthMiddleware,
+  multiTrashContactAdmin
+);
+router.post(
+  "/contact/multi-delete",
+  adminAuthMiddleware,
+  multiDeleteContactAdmin
+);
+router.delete(
+  "/contact/restore/:id",
+  adminAuthMiddleware,
+  restoreTrashContactAdmin
+);
 
 export default router;

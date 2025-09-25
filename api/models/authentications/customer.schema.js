@@ -39,7 +39,6 @@ const customerScheam = new mongoose.Schema(
     admin: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Admin",
-      required: true,
     },
     website: {
       type: mongoose.Schema.Types.ObjectId,

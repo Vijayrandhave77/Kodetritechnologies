@@ -20,6 +20,9 @@ import BlogTrash from "./views/cms/blogs/Trash";
 import FaqsPage from "./views/cms/faqs/All";
 import FaqsCreate from "./views/cms/faqs/Create";
 import FaqsTrash from "./views/cms/faqs/Trash";
+import ContactPage from "./views/cms/contacts/All";
+import ContactTrash from "./views/cms/contacts/Trash";
+import ContactDetails from "./views/cms/contacts/Details";
 import TestimonialsPage from "./views/cms/testimonials/All";
 import TestimonialsCreate from "./views/cms/testimonials/Create";
 import TestimonialsTrash from "./views/cms/testimonials/Trash";
@@ -44,7 +47,9 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ProtectedRoutes from "./authentications/ProtectedRoutes";
 import ProtectedPageRoutes from "./authentications/ProtectedPageRoutes";
-import SupportTicket from "./views/support/supportTicket";
+import SupportTicket from "./views/support/supportTicket/All";
+import SupportTicketDetails from "./views/support/supportTicket/SupportTicketDetails";
+import Reviews from "./views/ecommerce/Reviews";
 function App() {
   return (
     <BrowserRouter>
@@ -82,7 +87,7 @@ function App() {
             path="/ecommerce/notifications/:id/edit"
             element={<Notifications />}
           />
-          <Route path="/ecommerce/reviews" element={<ComingSoonPage />} />
+          <Route path="/ecommerce/reviews" element={<Reviews />} />
           <Route path="/cms/page/all" element={<Page />} />
           <Route path="/cms/page/create" element={<PageCreate />} />
           <Route path="/cms/page/edit/:id" element={<PageCreate />} />
@@ -95,6 +100,9 @@ function App() {
           <Route path="/cms/faq/create" element={<FaqsCreate />} />
           <Route path="/cms/faq/:id/edit" element={<FaqsCreate />} />
           <Route path="/cms/faq/trash" element={<FaqsTrash />} />
+          <Route path="/cms/contact/all" element={<ContactPage />} />
+          <Route path="/cms/contact/trash" element={<ContactTrash />} />
+          <Route path="/cms/contact/:id/details" element={<ContactDetails />} />
           <Route path="/cms/testimonials/all" element={<TestimonialsPage />} />
           <Route
             path="/cms/testimonials/create"
@@ -121,7 +129,11 @@ function App() {
           <Route path="/master/tages/:id/edit" element={<Tages />} />
           <Route path="/master/status" element={<Status />} />
           <Route path="/master/status/:id/edit" element={<Status />} />
-          <Route path="/support-ticket" element={<SupportTicket />} />
+          <Route path="/support/support-ticket" element={<SupportTicket />} />
+          <Route
+            path="/support/support-ticket/:id/details"
+            element={<SupportTicketDetails />}
+          />
           <Route path="/customer/all" element={<Customer />} />
           <Route path="/customer/create" element={<CustomerCreate />} />
           <Route path="/customer/:id/edit" element={<CustomerCreate />} />

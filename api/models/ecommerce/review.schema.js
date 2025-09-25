@@ -15,13 +15,7 @@ const reviewSchema = new mongoose.Schema(
     },
     item: {
       type: mongoose.Schema.Types.ObjectId,
-      refPath: "docModel",
       required: true,
-    },
-    docModel: {
-      type: String,
-      required: true,
-      enum: ["Product", "Service"],
     },
     website: {
       type: mongoose.Schema.Types.ObjectId,
@@ -35,6 +29,18 @@ const reviewSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+reviewSchema.pre("find", function (next) {
+  this.populate("customer");
+  this.populate("website");
+  this.populate("item");
+  next();
+});
+reviewSchema.pre("findOne", function (next) {
+  this.populate("customer");
+  this.populate("item");
+  next();
+});
 
 reviewSchema.plugin(mongoosePaginate);
 const Review = mongoose.model("Review", reviewSchema);

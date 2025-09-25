@@ -12,6 +12,12 @@ import ConfigurationRouter from "./routers/configuration/setting.master.router.j
 import CmsRouter from "./routers/cms/cms.router.js";
 import EcommerceRouter from "./routers/ecommerce/ecommerce.router.js";
 import DashboardlogsRouter from "./routers/dashbordlogs/dashboardlogs.router.js";
+import SupportTicketRouter from "./routers/support/supportTicket.router.js";
+
+// Frontend
+import ReviewRouter from "./routers/ecommerce/frontendEcommerce.router.js";
+import ContactRouter from "./routers/cms/frontendCms.router.js";
+import SupportRouter from "./routers/support/frontendSupportTicket.router.js";
 
 app.use(useragent.express());
 app.set("trust proxy", true);
@@ -32,11 +38,18 @@ app.get("/", (req, res) => {
   res.send("Kodetritechnologies api is running...");
 });
 
+// Admin
 app.use("/api/users", usersRouter);
 app.use("/api/configuration", ConfigurationRouter);
 app.use("/api/cms", CmsRouter);
 app.use("/api/ecommerce", EcommerceRouter);
 app.use("/api/dashboardlogs", DashboardlogsRouter);
+app.use("/api/support", SupportTicketRouter);
+
+// Frontend
+app.use("/api/public/reviews", ReviewRouter);
+app.use("/api/public/contact", ContactRouter);
+app.use("/api/public/support", SupportRouter);
 
 app.listen(PORT, () => {
   console.log(`Kodetritechnologies server is running on port ${PORT}`);

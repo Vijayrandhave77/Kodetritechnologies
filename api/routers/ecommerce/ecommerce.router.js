@@ -20,6 +20,11 @@ import {
   multiDeleteNotifications,
   updateNotifications,
 } from "../../controllers/ecommerce/notification.controller.js";
+import {
+  deleteReviewAdmin,
+  getCustomerReviewAdmin,
+  multiDeleteReviewAdmin,
+} from "../../controllers/ecommerce/review.controller.js";
 
 // Coupan routes
 router.get("/coupan", adminAuthMiddleware, getCoupan);
@@ -53,6 +58,16 @@ router.post(
   "/notifications/multi-delete",
   adminAuthMiddleware,
   multiDeleteNotifications
+);
+
+// Reviews
+
+router.get("/reviews", adminAuthMiddleware, getCustomerReviewAdmin);
+router.delete("/reviews/delete/:id", adminAuthMiddleware, deleteReviewAdmin);
+router.post(
+  "/reviews/multi-delete",
+  adminAuthMiddleware,
+  multiDeleteReviewAdmin
 );
 
 export default router;

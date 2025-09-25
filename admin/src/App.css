@@ -1147,3 +1147,158 @@ body {
 .faqremove {
     padding: 2px;
 }
+
+
+/* contactDetailPage */
+
+.contactDetailPage {
+    width: 100%;
+    height: 75vh;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.contactLeft {
+    width: 60%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+
+.contactRight {
+    width: 40%;
+    height: 100%;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.contactCard {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background-color: white;
+    padding: 0.5rem 1rem;
+}
+
+.imgSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgSection>img {
+    width: 50px;
+}
+
+
+
+/* support-ticket-details */
+
+.support-ticket-details {
+    width: 100%;
+    height: 65vh;
+    display: flex;
+    padding: 1rem;
+    user-select: none;
+    justify-content: space-between;
+}
+
+.supportHeader {
+    width: 100%;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.5rem 2rem;
+}
+
+.supportLeft {
+    width: 68%;
+    height: 100%;
+}
+
+.containet {
+    width: 100%;
+    height: 83%;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    overflow-y: scroll;
+}
+
+.customerReplay {
+    width: 50%;
+}
+
+.adminReplay {
+    width: 50%;
+}
+
+.supportReplay {
+    width: 100%;
+    height: 16%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 4px;
+    background-color: white;
+}
+
+.supportRight {
+    width: 28%;
+    height: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.support-priority {
+    border-radius: 4px;
+    color: white;
+    font: bold;
+    text-align: center;
+    background-color: rgb(65, 181, 65);
+    padding: 0.1rem 1rem;
+}
+
+.inputReplay {
+    width: 28rem;
+    height: 2rem;
+    padding-left: 1rem;
+    outline: none;
+    margin-right: 0.5rem;
+}
+
+.supportStatus {
+    margin-left: 1.5rem;
+}
+
+
+.itemsDetails {
+    width: 100%;
+}
+
+.itemImage {
+    width: 18%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.itemName {
+    width: 82%;
+}
+
+.itemImage>img {
+    border-radius: 50%;
+    object-fit: contain;
+}
